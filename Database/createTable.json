@@ -1,0 +1,18 @@
+{
+    "TableName": "CRM",
+    "KeySchema": [
+      { "AttributeName": "PK", "KeyType": "HASH" },
+      { "AttributeName": "id", "KeyType": "RANGE" }
+    ],
+    "AttributeDefinitions": [
+      { "AttributeName": "PK", "AttributeType": "S" },
+      { "AttributeName": "id", "AttributeType": "S" },
+      { "AttributeName": "name", "AttributeType": "S" },
+      { "AttributeName": "email", "AttributeType": "S" },
+      { "AttributeName": "phone", "AttributeType": "S" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+}
