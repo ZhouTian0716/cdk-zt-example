@@ -13,6 +13,7 @@
     "@aws-sdk/client-ses": "^3.294.0",
     "@aws-sdk/lib-dynamodb": "^3.266.0",
     "aws-cdk-lib": "2.61.1",
+    "aws-sdk": "^2.1386.0",
     "constructs": "^10.0.0",
     "cross-env": "^7.0.3",
     "source-map-support": "^0.5.21",
