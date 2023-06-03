@@ -40,4 +40,3 @@ const app = new cdk.App();
 new ServiceCRMStack(app, 'ServiceCRMStack');
 app.synth();
 
-
