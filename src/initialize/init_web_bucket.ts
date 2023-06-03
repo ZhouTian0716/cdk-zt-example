@@ -8,6 +8,7 @@ export function createWebS3Bucket(stack: cdk.Stack): s3.Bucket {
         versioned: true,
         removalPolicy: cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
         autoDeleteObjects: true,
+        
         websiteIndexDocument: "index.html",
         websiteErrorDocument: "error.html",
         publicReadAccess: true,
