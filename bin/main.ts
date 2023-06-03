@@ -27,6 +27,7 @@ import { logger } from "../Shared/Utils/logger"
 export class ServiceCRMStack extends Stack {
     constructor(app: App, id: string) {
         super(app, id);
+        // create ddb
         const ddb = createDynamoDB(this);
         // create webBucket
         const webBucket = createWebS3Bucket(this);
