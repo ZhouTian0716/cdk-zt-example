@@ -28,22 +28,6 @@ export class ServiceCRMStack extends Stack {
     constructor(app: App, id: string) {
         super(app, id);
         const ddb = createDynamoDB(this);
-        // add node functions
-        const nodeJsFunctionProps: NodejsFunctionProps = {
-            bundling: {
-              externalModules: [
-                'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
-              ],
-            },
-            depsLockFilePath: join(__dirname, 'lambdas', 'package-lock.json'),
-            environment: {
-              PRIMARY_KEY: 'id',
-              TABLE_NAME: ddb.tableName,
-            },
-            runtime: Runtime.NODEJS_14_X,
-          }
-
-
         // create webBucket
         const webBucket = createWebS3Bucket(this);
         // create imageBucket
