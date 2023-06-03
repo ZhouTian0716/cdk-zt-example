@@ -7,8 +7,8 @@
         "build": "cross-env NODE_ENV=production webpack --progress",
         "test": "jest --config ./jest.config.json --rootDir .",
         "lint:fix": "eslint . --fix",
-        "init": "cdk deploy web-stack-20230601 && cdk deploy image-stack-20230601 && cdk deploy ddb-stack-20230601",
-        "uninit": "cdk destroy web-stack-20230601 && cdk destroy image-stack-20230601 && cdk destroy ddb-stack-20230601"
+        "make_deploy": "cdk deploy ServiceCRMStack",
+        "make_destroy": "cdk destroy ServiceCRMStack"
     },
     "dependencies": {
         "@aws-sdk/client-dynamodb": "^3.266.0",
