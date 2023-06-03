@@ -12,8 +12,7 @@ export function createDynamoDB(stack: cdk.Stack): dynamodb.Table {
         sortKey: { name: 'Roomstype', type: dynamodb.AttributeType.STRING },
         removalPolicy: cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
         stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
-        billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-        kinesisStream: stream
+        billingMode: dynamodb.BillingMode.PAY_PER_REQUEST
       });
       
       // add metrics
@@ -48,11 +47,10 @@ export function createDynamoDB(stack: cdk.Stack): dynamodb.Table {
         comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
         treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
       });
-  
+      
       new cdk.CfnOutput(stack, "Table", {
         value: table.tableName,
         description: "Table Name",
-        });   
-
+        });  
     return table;
 }
