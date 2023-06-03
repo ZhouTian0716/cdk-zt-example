@@ -2,15 +2,9 @@
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { App, Stack } from "aws-cdk-lib";
-import { createImageS3Bucket } from "../src/initialize/init_image_bucket";
-import { createDynamoDB } from "../src/initialize/init_ddb";
-import { createWebS3Bucket } from "../src/initialize/init_web_bucket";
-import { NodejsFunction, NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs';
-import { Runtime } from 'aws-cdk-lib/aws-lambda';
-import { join } from 'path';
-import { IConfig } from "../src/config"
-import { logger } from "../Shared/Utils/logger"
-
+import { createImageS3Bucket } from "../lib/init_image_bucket";
+import { createDynamoDB } from "../lib/init_ddb";
+import { createWebS3Bucket } from "../lib/init_web_bucket";
 
 // const env = process.env.CRM_ENV ? process.env.CRM_ENV : "prod"
 // logger.info("Env: ", env)
