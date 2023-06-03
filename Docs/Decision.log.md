@@ -19,8 +19,7 @@ CarSpaces: Number - The number of CarSpaces
 PropertyType: String - Property Type
 PropertyArea: Number - The Area(cm^2) of the Property
 PriceRange: Number 
-NearbySchools: MapList - record name, coordinates, address in each school
-NearbyShoppingCenters: MapList -  record name, coordinates, address in each ShoppingCenter
+Facilities: MapList - record name, coordinates, address in each Facility
 Images: MapList - record id, url, isCoverPage, tag in each Image
 
 
