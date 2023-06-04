@@ -7,4 +7,7 @@ node_modules
 # CDK asset staging directory
 .cdk.staging
 cdk.out
-Docs/
+
+#docomentation
+
+.idea/Docs/
