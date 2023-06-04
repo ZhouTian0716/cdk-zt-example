@@ -19,8 +19,22 @@ CarSpaces: Number - The number of CarSpaces
 PropertyType: String - Property Type(townhouse, house, unit, apartment)
 PropertyArea: Number - The Area of the Property
 PropertyAreaUnit: String - The Area units of the Property
-PriceRange: Map - The max and min price of Property
-Facilities: MapList - record name(string), coordinates(Map), address(string) in each Facility
-Images: MapList - record id(number), url(string), isCoverPage(Boolean, validation), tags(StringList) in each Image
+Price: Map - Number - The price of the Property 
+POI: MapList - record name(string), coordinates(Map), address(string) in each POI
+Images: NumberList
 
+####################################################################################
 
+Table name: Images
+
+Partition key: String = IMAGE
+
+Sort key: id: number - UUID
+
+attributes:
+url: String - the url of image stored in s3 bucket
+isCoverPage: Boolean  - Is it the image in coverage, 
+                        need to add validation, one 
+                        property only have one cover 
+                        page in following development
+tags: stringList
