@@ -21,7 +21,7 @@ PropertyArea: Number - The Area of the Property
 PropertyAreaUnit: String - The Area units of the Property
 Price: Map - Number - The price of the Property 
 POI: MapList - record name(string), coordinates(Map), address(string) in each POI
-Images: NumberList
+Images: NumberList - a list of Images id
 
 ####################################################################################
 
@@ -31,7 +31,7 @@ Partition key: String = IMAGE
 
 Sort key: id: number - UUID
 
-attributes:
+Attributes:
 url: String - the url of image stored in s3 bucket
 isCoverPage: Boolean  - Is it the image in coverage, 
                         need to add validation, one 
