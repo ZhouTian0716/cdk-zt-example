@@ -10,7 +10,7 @@ import * as certmgr from "aws-cdk-lib/aws-certificatemanager"
 export function createCdkCloudFrontStack(stack: cdk.Stack) {
   const domainName = "oliviacai.com"
 
-  const staticWebsiteBucket = cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", "demo-cloudfront-olivia-v4-2")
+  const staticWebsiteBucket = cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", "web-host-s3bucket-20230602")
 
   const zone = route53.HostedZone.fromLookup(stack, "Zone", { domainName })
 
@@ -89,7 +89,7 @@ export function createCdkCloudFrontStack(stack: cdk.Stack) {
   })
 
   new cdk.CfnOutput(stack, "BucketWebsiteURL", {
-    value: `http://${staticWebsiteBucket.bucketName}.s3-website-${stack.region}.amazonaws.com`,
+    value: staticWebsiteBucket.bucketWebsiteUrl,
     description: "The URL of the website",
   })
 
