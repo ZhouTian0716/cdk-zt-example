@@ -1,20 +1,29 @@
 #!/usr/bin/env node
 import "source-map-support/register"
-import * as cdk from "aws-cdk-lib"
+import * as Cdk from "aws-cdk-lib"
 import { App, Stack } from "aws-cdk-lib"
 import { ServiceCRMStack } from "../src/ServiceCRMStack"
 import { IConfig } from "../src/config"
-import { config } from "../src/config"
 
+const app = new Cdk.App()
 
-const app = new cdk.App()
-// TODO: we need to copy different dev config
+const config: IConfig = app.node.tryGetContext("config");
 
-// const stackName = `JR-RealEstate-${config.environment}`
-// initialize the three stacks for 2 buckets and 1 ddb table
+let REGION;
+if ([ "douglas", "Olivia", "Libby", "prod"].includes(config.environment)) {
+    console.log(`you are using environment - ${config.environment}`)
+    REGION = require(`../src/constants.${config.environment}`).REGION;
+}else {
+    throw new Error("Please provide a valid environment name");
+}
 
-// stack of DynamoDB
+const stackName = `JR-RealEstate-${config.environment}`
+console.log(`stackName: ${stackName}`)
 
-const stackID = config.stackID
-new ServiceCRMStack(app, stackID)
+// create stack
+new ServiceCRMStack(app, stackName,{
+    env: {
+        region: REGION,
+    }
+})
 app.synth()
