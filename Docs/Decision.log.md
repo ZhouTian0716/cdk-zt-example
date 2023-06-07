@@ -1,3 +1,5 @@
+#
+
 Table name: Properties
 
 Partition key: String = PROJECT
