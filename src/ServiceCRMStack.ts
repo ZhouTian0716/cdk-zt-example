@@ -10,20 +10,11 @@ export class ServiceCRMStack extends Cdk.Stack {
   constructor(scope: Construct, id: string, props?: Cdk.StackProps) {
     super(scope, id, props)
 
-    const config: IConfig = scope.node.tryGetContext("config");
-    
-    let ddbTableName;
-    let webBucketName;
-    let imageBucketName;
-    
-    if ([ "douglas", "Olivia", "Libby", "prod"].includes(config.environment)) {
-        console.log(`you are using environment - ${config.environment}`)
-        ddbTableName = require(`../src/constants.${config.environment}`).DDB_TABLE_NAME;
-        webBucketName = require(`../src/constants.${config.environment}`).WEB_BUCKET_NAME;
-        imageBucketName = require(`../src/constants.${config.environment}`).IAMGE_BUCKET_NAME;
-    }else {
-        throw new Error("Please provide a valid environment name");
-    }
+    const env = process.env.CRM_ENV;
+    const config = require(`../src/constants.${env}`);
+    const ddbTableName = config.DDB_TABLE_NAME;
+    const webBucketName = config.WEB_BUCKET_NAME;
+    const imageBucketName = config.IAMGE_BUCKET_NAME;
 
     // const arn = process.env.CRM_DYNAMODB_ARN
     //const db = Dynamodb.Table.fromTableArn(this, "CRM_Table", arn ? arn : config.dynamodb_arn)
@@ -31,10 +22,10 @@ export class ServiceCRMStack extends Cdk.Stack {
     // TODO: add your code
     // ...
     // create ddb
-    const ddb = createDynamoDB(this, ddbTableName);
+    createDynamoDB(this, ddbTableName);
     // create webBucket
-    const webBucket = createWebS3Bucket(this, webBucketName);
+    createWebS3Bucket(this, webBucketName);
     // create imageBucket
-    const imageBucket = createImageS3Bucket(this, imageBucketName);
+    createImageS3Bucket(this, imageBucketName);
   };
 };

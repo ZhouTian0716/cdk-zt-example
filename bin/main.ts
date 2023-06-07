@@ -7,17 +7,11 @@ import { IConfig } from "../src/config"
 
 const app = new Cdk.App()
 
-const config: IConfig = app.node.tryGetContext("config");
+const env = process.env.CRM_ENV; // set the local environment variable before running the script
+const config = require(`../src/constants.${env}`);
+const REGION = config.REGION;
 
-let REGION;
-if ([ "douglas", "Olivia", "Libby", "prod"].includes(config.environment)) {
-    console.log(`you are using environment - ${config.environment}`)
-    REGION = require(`../src/constants.${config.environment}`).REGION;
-}else {
-    throw new Error("Please provide a valid environment name");
-}
-
-const stackName = `JR-RealEstate-${config.environment}`
+const stackName = `JR-RealEstate-${env}`
 console.log(`stackName: ${stackName}`)
 
 // create stack

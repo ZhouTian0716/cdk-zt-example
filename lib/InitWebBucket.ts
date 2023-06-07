@@ -2,7 +2,7 @@ import * as Cdk from "aws-cdk-lib"
 import { aws_s3 as s3 } from "aws-cdk-lib"
 
 export function createWebS3Bucket(stack : Cdk.Stack, web_bucketName : string): s3.Bucket {
-  const web_bucket = new s3.Bucket(stack, "web-bucket", {
+  const webBucket = new s3.Bucket(stack, "web-bucket", {
     bucketName: web_bucketName,
     versioned: false,
     removalPolicy: Cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
@@ -15,9 +15,9 @@ export function createWebS3Bucket(stack : Cdk.Stack, web_bucketName : string): s
   });
 
   new Cdk.CfnOutput(stack, "web-Bucket", {
-    value: web_bucket.bucketWebsiteUrl,
-    description: "Bucket URL",
+    value: webBucket.bucketWebsiteUrl,
+    description: "web Bucket URL",
   });
 
-  return web_bucket;
+  return webBucket;
 }
