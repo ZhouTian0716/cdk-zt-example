@@ -7,8 +7,12 @@
     "build": "cross-env NODE_ENV=production webpack --progress",
     "test": "jest --config ./jest.config.json --rootDir .",
     "lint:fix": "eslint . --fix",
-    "make_deploy": "cdk deploy ServiceCRMStack",
-    "make_destroy": "cdk destroy ServiceCRMStack"
+    "douglas_make_deploy": "cdk deploy JR-RealEstate-douglas",
+    "douglas_make_destroy": "cdk destroy JR-RealEstate-douglas",
+    "Olivia_make_deploy": "cdk deploy JR-RealEstate-Olivia",
+    "Olivia_make_destroy": "cdk destroy JR-RealEstate-Olivia",
+    "Libby_make_deploy": "cdk deploy JR-RealEstate-Libby",
+    "Libby_make_destroy": "cdk destroy JR-RealEstate-Libby"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.266.0",

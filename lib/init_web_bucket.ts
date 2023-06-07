@@ -1,13 +1,11 @@
 import * as cdk from "aws-cdk-lib"
 import { aws_s3 as s3 } from "aws-cdk-lib"
 import * as iam from "aws-cdk-lib/aws-iam"
-import { IConfig } from "../src/config"
-import { config } from "../src/config"
 
-export function createWebS3Bucket(stack: cdk.Stack): s3.Bucket {
+export function createWebS3Bucket(stack : cdk.Stack, web_bucketName : string): s3.Bucket {
   const web_bucket = new s3.Bucket(stack, "web-bucket", {
-    bucketName: config.webBucketName,
-    versioned: true,
+    bucketName: web_bucketName,
+    versioned: false,
     removalPolicy: cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
     autoDeleteObjects: true,
 
@@ -18,7 +16,7 @@ export function createWebS3Bucket(stack: cdk.Stack): s3.Bucket {
   });
 
   new cdk.CfnOutput(stack, "web-Bucket", {
-    value: web_bucket.bucketWebsiteUrl,
+    value: web_bucket.bucketArn,
     description: "Bucket URL",
   });
 

@@ -2,11 +2,10 @@ import * as cdk from "aws-cdk-lib"
 import { aws_s3 as s3 } from "aws-cdk-lib"
 import * as iam from "aws-cdk-lib/aws-iam"
 import { IConfig } from "../src/config"
-import { config } from "../src/config"
 
-export function createImageS3Bucket(stack: cdk.Stack): s3.Bucket {
+export function createImageS3Bucket(stack: cdk.Stack, image_bucketName : string): s3.Bucket {
   const image_bucket = new s3.Bucket(stack, "image-bucket", {
-    bucketName: config.imageBucketName,
+    bucketName: image_bucketName,
     versioned: true,
     removalPolicy: cdk.RemovalPolicy.DESTROY, // Please use destroy only for testing purposes
     autoDeleteObjects: true,
@@ -24,7 +23,7 @@ export function createImageS3Bucket(stack: cdk.Stack): s3.Bucket {
   image_bucket.addToResourcePolicy(policy)
 
   new cdk.CfnOutput(stack, "image-Bucket", {
-    value: image_bucket.bucketWebsiteUrl,
+    value: image_bucket.bucketArn,
     description: "Bucket URL",
   });
 
