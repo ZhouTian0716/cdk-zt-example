@@ -45,7 +45,7 @@ export function createDynamoDB(stack : cdk.Stack, ddbName : string): Dynamodb.Ta
 
   new cdk.CfnOutput(stack, "Table", {
     value: table.tableArn,
-    description: "Table Name",
+    description: "Table ARN",
   });
 
   return table;

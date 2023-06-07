@@ -24,7 +24,7 @@ export function createImageS3Bucket(stack: cdk.Stack, image_bucketName : string)
 
   new cdk.CfnOutput(stack, "image-Bucket", {
     value: image_bucket.bucketArn,
-    description: "Bucket URL",
+    description: "Bucket ARN",
   });
 
   return image_bucket;

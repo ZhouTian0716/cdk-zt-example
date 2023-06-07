@@ -16,7 +16,7 @@ export function createWebS3Bucket(stack : cdk.Stack, web_bucketName : string): s
   });
 
   new cdk.CfnOutput(stack, "web-Bucket", {
-    value: web_bucket.bucketArn,
+    value: web_bucket.bucketWebsiteUrl,
     description: "Bucket URL",
   });
 
