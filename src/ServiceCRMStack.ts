@@ -1,13 +1,13 @@
-import * as CDK from "aws-cdk-lib"
+import * as Cdk from "aws-cdk-lib"
 import * as Dynamodb from "aws-cdk-lib/aws-dynamodb"
 import { Construct } from "constructs"
 import { IConfig } from "./config"
-import { createImageS3Bucket } from "../lib/init_image_bucket"
-import { createDynamoDB } from "../lib/init_ddb"
-import { createWebS3Bucket } from "../lib/init_web_bucket"
+import { createImageS3Bucket } from "../lib/InitImageBucket"
+import { createDynamoDB } from "../lib/InitDdb"
+import { createWebS3Bucket } from "../lib/InitWebBucket"
 
-export class ServiceCRMStack extends CDK.Stack {
-  constructor(scope: Construct, id: string, props?: CDK.StackProps) {
+export class ServiceCRMStack extends Cdk.Stack {
+  constructor(scope: Construct, id: string, props?: Cdk.StackProps) {
     super(scope, id, props)
 
     const config: IConfig = scope.node.tryGetContext("config");

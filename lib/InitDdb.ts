@@ -1,4 +1,4 @@
-import * as cdk from "aws-cdk-lib"
+import * as Cdk from "aws-cdk-lib"
 import * as Dynamodb from "aws-cdk-lib/aws-dynamodb"
 import * as Cloudwatch from "aws-cdk-lib/aws-cloudwatch"
 import { IConfig } from "../src/config"
@@ -7,13 +7,13 @@ if (process.env.NODE_ENV == "production" ) {
 
 }
 
-export function createDynamoDB(stack : cdk.Stack, ddbName : string): Dynamodb.Table {
+export function createDynamoDB(stack : Cdk.Stack, ddbName : string): Dynamodb.Table {
 
   const table: Dynamodb.Table = new Dynamodb.Table(stack, "Property-Table", {
     tableName: ddbName,
     partitionKey: { name: "PK", type: Dynamodb.AttributeType.STRING },
     sortKey: { name: "ID", type: Dynamodb.AttributeType.NUMBER },
-    removalPolicy: cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
+    removalPolicy: Cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
     stream: Dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
     billingMode: Dynamodb.BillingMode.PAY_PER_REQUEST,
   })
@@ -21,7 +21,7 @@ export function createDynamoDB(stack : cdk.Stack, ddbName : string): Dynamodb.Ta
   // add metrics
   const metric: Cloudwatch.IMetric = table.metricThrottledRequestsForOperations({
     operations: [Dynamodb.Operation.GET_ITEM, Dynamodb.Operation.PUT_ITEM, Dynamodb.Operation.DELETE_ITEM, Dynamodb.Operation.UPDATE_ITEM],
-    period: cdk.Duration.minutes(10) // 10 minutes period
+    period: Cdk.Duration.minutes(10) // 10 minutes period
   })
 
   //add alarm for table
@@ -43,7 +43,7 @@ export function createDynamoDB(stack : cdk.Stack, ddbName : string): Dynamodb.Ta
     treatMissingData: Cloudwatch.TreatMissingData.NOT_BREACHING,
   });
 
-  new cdk.CfnOutput(stack, "Table", {
+  new Cdk.CfnOutput(stack, "Table", {
     value: table.tableArn,
     description: "Table ARN",
   });

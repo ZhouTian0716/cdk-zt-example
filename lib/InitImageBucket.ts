@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib"
 import { aws_s3 as s3 } from "aws-cdk-lib"
-import * as iam from "aws-cdk-lib/aws-iam"
+import * as Iam from "aws-cdk-lib/aws-iam"
 import { IConfig } from "../src/config"
 
 export function createImageS3Bucket(stack: cdk.Stack, image_bucketName : string): s3.Bucket {
@@ -13,10 +13,10 @@ export function createImageS3Bucket(stack: cdk.Stack, image_bucketName : string)
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS
   });
   // const devArn = `arn:aws:lambda:us-east-1:<account>:function:*:*`;
-  const policy = new iam.PolicyStatement({
+  const policy = new Iam.PolicyStatement({
     actions: ["s3:GetObject", "s3:DeleteObject", "s3:PutObject"],
-    effect: iam.Effect.ALLOW,
-    principals: [new iam.AnyPrincipal()],
+    effect: Iam.Effect.ALLOW,
+    principals: [new Iam.AnyPrincipal()],
     resources: [image_bucket.bucketArn, image_bucket.arnForObjects("*")],
   });
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import "source-map-support/register"
-import * as cdk from "aws-cdk-lib"
+import * as Cdk from "aws-cdk-lib"
 import { App, Stack } from "aws-cdk-lib"
 import { ServiceCRMStack } from "../src/ServiceCRMStack"
 import { IConfig } from "../src/config"
 
-const app = new cdk.App()
+const app = new Cdk.App()
 
 const config: IConfig = app.node.tryGetContext("config");
 
