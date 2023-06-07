@@ -8,6 +8,4 @@ node_modules
 .cdk.staging
 cdk.out
 
-#docomentation
-
-Docs/Decision.log.md
+.idea/

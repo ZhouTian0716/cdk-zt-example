@@ -19,22 +19,21 @@ CarSpaces: Number - The number of CarSpaces
 PropertyType: String - Property Type(townhouse, house, unit, apartment)
 PropertyArea: Number - The Area of the Property
 PropertyAreaUnit: String - The Area units of the Property
-Price: Map - Number - The price of the Property 
+LandPrice:Number - The land price of the Property
+HousePrice:Number - The house price of the property
 POI: MapList - record name(string), coordinates(Map), address(string) in each POI
-Images: NumberList - a list of Images id
+ServiceType: String - Property service type(Established, new, off the plan)
+SettlementTime: Map (year(string), month(string)) - if off the plan, must have
+Files: Map  - ImagesId (NumberList)， isCoverPage(boolean), isPublic(boolean)
 
-####################################################################################
+Table name: FILES
 
-Table name: Images
-
-Partition key: String = IMAGE
+Partition key: String = FILE
 
 Sort key: id: number - UUID
 
 Attributes:
-url: String - the url of image stored in s3 bucket
-isCoverPage: Boolean  - Is it the image in coverage, 
-                        need to add validation, one 
-                        property only have one cover 
-                        page in following development
-tags: stringList
+Url: String - the path of image stored in s3 bucket
+Tags: stringList
+CreatedBy: string - username who create the item
+DateTime: string - create time
