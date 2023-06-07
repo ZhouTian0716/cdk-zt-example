@@ -14,13 +14,13 @@ export function createWebS3Bucket(stack: cdk.Stack): s3.Bucket {
     websiteIndexDocument: "index.html",
     websiteErrorDocument: "error.html",
     publicReadAccess: true,
-    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS
-  });
+    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS,
+  })
 
   new cdk.CfnOutput(stack, "web-Bucket", {
     value: web_bucket.bucketWebsiteUrl,
     description: "Bucket URL",
-  });
+  })
 
-  return web_bucket;
+  return web_bucket
 }

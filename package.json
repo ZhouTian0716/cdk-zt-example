@@ -11,6 +11,8 @@
     "make_destroy": "cdk destroy ServiceCRMStack"
   },
   "dependencies": {
+    "@aws-cdk/aws-route53": "^1.203.0",
+    "@aws-cdk/aws-s3": "^1.203.0",
     "@aws-sdk/client-dynamodb": "^3.266.0",
     "@aws-sdk/client-ses": "^3.294.0",
     "@aws-sdk/lib-dynamodb": "^3.266.0",
