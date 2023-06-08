@@ -7,7 +7,7 @@ const app = new Cdk.App()
 
 const env = process.env.CRM_ENV // set the local environment variable before running the script
 
-const config = require(`../src/constants${env}`)// eslint-disable-line
+const config = require(`../src/constants.${env}`)// eslint-disable-line
 
 const REGION = config.REGION
 const stackName = `JR-RealEstate-${env}`
