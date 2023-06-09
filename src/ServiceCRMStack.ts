@@ -1,17 +1,20 @@
-import * as CDK from "aws-cdk-lib"
-import * as Dynamodb from "aws-cdk-lib/aws-dynamodb"
+import * as Cdk from "aws-cdk-lib"
 import { Construct } from "constructs"
-import { IConfig } from "./config"
-import { createImageS3Bucket } from "../lib/init_image_bucket"
-import { createDynamoDB } from "../lib/init_ddb"
-import { createWebS3Bucket } from "../lib/init_web_bucket"
-import { createCdkCloudFrontStack } from "../lib/cdk_cloudfront"
+import { createImageS3Bucket } from "../lib/InitImageBucket"
+import { createDynamoDB } from "../lib/InitDdb"
+import { createWebS3Bucket } from "../lib/InitWebBucket"
+import { createCdkCloudFrontStack } from "../lib/cdkCloudfront"
 
-export class ServiceCRMStack extends CDK.Stack {
-  constructor(scope: Construct, id: string, props?: CDK.StackProps) {
+export class ServiceCRMStack extends Cdk.Stack {
+  constructor(scope: Construct, id: string, props?: Cdk.StackProps) {
     super(scope, id, props)
 
-    const config: IConfig = scope.node.tryGetContext("config")
+    const env = process.env.CRM_ENV
+    const config = require(`../src/constants.${env}`)// eslint-disable-line
+    const ddbTableName = config.DDB_TABLE_NAME
+    const webBucketName = config.WEB_BUCKET_NAME
+    const imageBucketName = config.IAMGE_BUCKET_NAME
+    const domainName = config.DOMAIN_NAME
 
     // const arn = process.env.CRM_DYNAMODB_ARN
     //const db = Dynamodb.Table.fromTableArn(this, "CRM_Table", arn ? arn : config.dynamodb_arn)
@@ -19,12 +22,12 @@ export class ServiceCRMStack extends CDK.Stack {
     // TODO: add your code
     // ...
     // create ddb
-    const ddb = createDynamoDB(this)
+    createDynamoDB(this, ddbTableName)
     // create webBucket
-    const webBucket = createWebS3Bucket(this)
+    createWebS3Bucket(this, webBucketName)
     // create imageBucket
-    const imageBucket = createImageS3Bucket(this)
-
-    createCdkCloudFrontStack(this)
+    createImageS3Bucket(this, imageBucketName)
+    // create cdkfrontstack
+    createCdkCloudFrontStack(this, webBucketName, domainName)
   }
 }

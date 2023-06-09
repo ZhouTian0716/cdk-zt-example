@@ -1,39 +1,37 @@
-import * as cdk from "aws-cdk-lib"
+import * as Cdk from "aws-cdk-lib"
 import { Construct } from "constructs"
-import * as cloudfront from "aws-cdk-lib/aws-cloudfront"
+import * as Cloudfront from "aws-cdk-lib/aws-cloudfront"
 import { CanonicalUserPrincipal } from "aws-cdk-lib/aws-iam"
 import { Metric } from "aws-cdk-lib/aws-cloudwatch"
-import * as route53 from "aws-cdk-lib/aws-route53"
-import * as targets from "aws-cdk-lib/aws-route53-targets"
-import * as certmgr from "aws-cdk-lib/aws-certificatemanager"
+import * as Route53 from "aws-cdk-lib/aws-route53"
+import * as Targets from "aws-cdk-lib/aws-route53-targets"
+import * as Certmgr from "aws-cdk-lib/aws-certificatemanager"
 
-export function createCdkCloudFrontStack(stack: cdk.Stack) {
-  const domainName = "oliviacai.com"
+export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: string, domainName: string) {
+  const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
-  const staticWebsiteBucket = cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", "web-host-s3bucket-20230602")
+  const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
 
-  const zone = route53.HostedZone.fromLookup(stack, "Zone", { domainName })
-
-  const cert = new certmgr.Certificate(stack, "Certificate", {
+  const cert = new Certmgr.Certificate(stack, "Certificate", {
     domainName,
-    validation: certmgr.CertificateValidation.fromDns(zone),
+    validation: Certmgr.CertificateValidation.fromDns(zone),
   })
 
-  const cloudfrontOAI = new cloudfront.OriginAccessIdentity(stack, "CloudfrontOAI", {
+  const cloudfrontOAI = new Cloudfront.OriginAccessIdentity(stack, "CloudfrontOAI", {
     comment: `Cloudfront OAI for ${domainName}`,
   })
 
   staticWebsiteBucket.addToResourcePolicy(
-    new cdk.aws_iam.PolicyStatement({
+    new Cdk.aws_iam.PolicyStatement({
       sid: "s3BucketPublicRead",
-      effect: cdk.aws_iam.Effect.ALLOW,
+      effect: Cdk.aws_iam.Effect.ALLOW,
       actions: ["s3:GetObject"],
       principals: [new CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
       resources: [`${staticWebsiteBucket.bucketArn}/*`],
     })
   )
 
-  const viewerCert = cloudfront.ViewerCertificate.fromAcmCertificate(
+  const viewerCert = Cloudfront.ViewerCertificate.fromAcmCertificate(
     {
       certificateArn: cert.certificateArn,
       env: {
@@ -50,13 +48,13 @@ export function createCdkCloudFrontStack(stack: cdk.Stack) {
         }),
     },
     {
-      sslMethod: cloudfront.SSLMethod.SNI,
-      securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+      sslMethod: Cloudfront.SSLMethod.SNI,
+      securityPolicy: Cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
       aliases: [domainName],
     }
   )
 
-  const distribution = new cloudfront.CloudFrontWebDistribution(stack, "react-app-v2-distro", {
+  const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "react-app-distro", {
     viewerCertificate: viewerCert,
     originConfigs: [
       {
@@ -68,7 +66,7 @@ export function createCdkCloudFrontStack(stack: cdk.Stack) {
           {
             isDefaultBehavior: true,
             compress: true,
-            allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+            allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
           },
         ],
       },
@@ -82,18 +80,18 @@ export function createCdkCloudFrontStack(stack: cdk.Stack) {
   //     distribution,
   //   })
 
-  new route53.ARecord(stack, "AliasRecord", {
+  new Route53.ARecord(stack, "AliasRecord", {
     zone: zone,
     recordName: domainName,
-    target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
+    target: Route53.RecordTarget.fromAlias(new Targets.CloudFrontTarget(distribution)),
   })
 
-  new cdk.CfnOutput(stack, "BucketWebsiteURL", {
+  new Cdk.CfnOutput(stack, "BucketWebsiteURL", {
     value: staticWebsiteBucket.bucketWebsiteUrl,
     description: "The URL of the website",
   })
 
-  new cdk.CfnOutput(stack, "DomainName", {
+  new Cdk.CfnOutput(stack, "DomainName", {
     value: domainName,
     description: "The domain name of the website",
   })
