@@ -1,8 +1,7 @@
 import * as Cdk from "aws-cdk-lib"
-import { Construct } from "constructs"
 import * as Cloudfront from "aws-cdk-lib/aws-cloudfront"
-import { CanonicalUserPrincipal } from "aws-cdk-lib/aws-iam"
-import { Metric } from "aws-cdk-lib/aws-cloudwatch"
+import * as Iam from "aws-cdk-lib/aws-iam"
+import * as Cloudwatch from "aws-cdk-lib/aws-cloudwatch"
 import * as Route53 from "aws-cdk-lib/aws-route53"
 import * as Targets from "aws-cdk-lib/aws-route53-targets"
 import * as Certmgr from "aws-cdk-lib/aws-certificatemanager"
@@ -26,7 +25,7 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
       sid: "s3BucketPublicRead",
       effect: Cdk.aws_iam.Effect.ALLOW,
       actions: ["s3:GetObject"],
-      principals: [new CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
+      principals: [new Iam.CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
       resources: [`${staticWebsiteBucket.bucketArn}/*`],
     })
   )
@@ -42,7 +41,7 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
       node: stack.node,
       stack: stack,
       metricDaysToExpiry: () =>
-        new Metric({
+        new Cloudwatch.Metric({
           namespace: "TLS viewer certificate validity",
           metricName: "TLS Viewer Certificate expired",
         }),
@@ -72,17 +71,15 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
       },
     ],
   })
-
-  //   new cdk.aws_s3_deployment.BucketDeployment(stack, "react-app-deployment-v2", {
-  //     destinationBucket: staticWebsiteBucket,
-  //     sources: [cdk.aws_s3_deployment.Source.asset("./my-app/build")],
-  //     cacheControl: [cdk.aws_s3_deployment.CacheControl.maxAge(cdk.Duration.days(1))],
-  //     distribution,
-  //   })
-
   new Route53.ARecord(stack, "AliasRecord", {
     zone: zone,
     recordName: domainName,
+    target: Route53.RecordTarget.fromAlias(new Targets.CloudFrontTarget(distribution)),
+  })
+
+  new Route53.ARecord(stack, "wwwAliasRecord", {
+    zone: zone,
+    recordName: `www.${domainName}`,
     target: Route53.RecordTarget.fromAlias(new Targets.CloudFrontTarget(distribution)),
   })
 
