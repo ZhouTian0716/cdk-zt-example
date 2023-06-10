@@ -1,0 +1,17 @@
+[{
+    "PK": {"S": "FILE"},
+    "id": {"N": "1"},
+    "tag": {"S": "tag1"},
+    "createBy": {"S": "Joe"},
+    "comment": {"S": "This is a comment of file 1"},
+    "url": {"S":"https://estatemaster-frontend.s3.ap-southeast-2.amazonaws.com/assets/applications-image-01-0c6d7aa0.jpg"}
+
+},
+{
+    "PK": {"S": "FILE"},
+    "id": {"N": "2"},
+    "tag": {"S": "tag2"},
+    "createBy": {"S": "Lily"},
+    "Comment": {"S": "This is a comment of file 2"},
+    "url": {"S":"https://estatemaster-frontend.s3.ap-southeast-2.amazonaws.com/assets/applications-image-03-effb2d24.jpg"}
+}]
