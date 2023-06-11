@@ -9,10 +9,10 @@
     "lint:fix": "eslint . --fix",
     "douglas_make_deploy": "cdk deploy JR-RealEstate-douglas",
     "douglas_make_destroy": "cdk destroy JR-RealEstate-douglas",
-    "Olivia_make_deploy": "cdk deploy JR-RealEstate-Olivia",
-    "Olivia_make_destroy": "cdk destroy JR-RealEstate-Olivia",
-    "Libby_make_deploy": "cdk deploy JR-RealEstate-Libby",
-    "Libby_make_destroy": "cdk destroy JR-RealEstate-Libby"
+    "olivia_make_deploy": "cdk deploy JR-RealEstate-olivia",
+    "olivia_make_destroy": "cdk destroy JR-RealEstate-olivia",
+    "libby_make_deploy": "cdk deploy JR-RealEstate-libby",
+    "libby_make_destroy": "cdk destroy JR-RealEstate-libby"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.266.0",
