@@ -1,7 +1,7 @@
 import * as Cdk from "aws-cdk-lib"
 import { Construct } from "constructs"
 import { createImageS3Bucket } from "./ImageBucketStack"
-import { createDynamoDB } from "./DynamoDBStack"
+import { createDynamoDB } from "./DynamodbStack"
 import { createWebS3Bucket } from "./WebBucketSatck"
 
 export class ServiceCRMStack extends Cdk.Stack {
