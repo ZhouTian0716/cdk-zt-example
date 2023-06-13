@@ -24,9 +24,9 @@ PropertyAreaUnit: String - The Area units of the Property
 LandPrice:Number - The land price of the Property
 HousePrice:Number - The house price of the property
 POI: MapList - record name(string), coordinates(Map), address(string) in each POI
-ServiceType: String - Property service type(Established, new, off the plan)
+SourceType: String - Property service type(Established, new, off the plan)
 SettlementTime: Map (year(string), month(string)) - if off the plan, must have
-Files: Map  - ImagesId (NumberList)， isCoverPage(boolean), isPublic(boolean)
+Files: Map  - FilesId (NumberList)， isCoverPage(boolean), isPublic(boolean)
 
 Table name: FILES
 

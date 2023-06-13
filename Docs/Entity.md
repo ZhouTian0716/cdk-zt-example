@@ -24,12 +24,12 @@ We use dynamodb to store all data, and use `PK` as entity type
 
 |  PK     |   Comment    |         Common property          |
 | :--:    | :---------:  | :------------------------------: |
-| PROJECT | Project info | id, Address, Suburb, Postcode, State, CityCouncil, YearBuilt, Coordinates, Agent, Bathrooms, Bedrooms, PropertyType, PropertyArea, PropertyAreaUnit, LandPrice, HousePrice, POI, ServiceType, SettlementTime, Files, CarSpaces  |
+| PROJECT | Project info | id, Address, Suburb, Postcode, State, CityCouncil, YearBuilt, Coordinates, Agent, Bathrooms, Bedrooms, PropertyType, PropertyArea, PropertyAreaUnit, LandPrice, HousePrice, POI, SourceType, SettlementTime, Files, CarSpaces  |
 
 
 |  PK  |   Comment   |         Common property          |
 | :--: | :---------: | :------------------------------: |
-| FILE | File info  |Url, Tags, CreatedBy, DateTime|
+| FILE | File info  |id, Url, Tags, CreatedBy, DateTime|
 
 # Terminology
 
