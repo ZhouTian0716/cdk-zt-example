@@ -11,9 +11,11 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
 
-  const cert = new Certmgr.Certificate(stack, "Certificate", {
-    domainName,
-    validation: Certmgr.CertificateValidation.fromDns(zone),
+  const cert = new Certmgr.DnsValidatedCertificate(stack, "Certificate", {
+    domainName: domainName,
+    subjectAlternativeNames: [`*.${domainName}`],
+    hostedZone: zone,
+    region: stack.region,
   })
 
   const cloudfrontOAI = new Cloudfront.OriginAccessIdentity(stack, "CloudfrontOAI", {
@@ -34,7 +36,7 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
     {
       certificateArn: cert.certificateArn,
       env: {
-        region: domainName,
+        region: stack.region,
         account: stack.account,
       },
       applyRemovalPolicy: cert.applyRemovalPolicy,
@@ -47,9 +49,9 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
         }),
     },
     {
+      aliases: [domainName, `www.${domainName}`],
       sslMethod: Cloudfront.SSLMethod.SNI,
       securityPolicy: Cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
-      aliases: [domainName],
     }
   )
 

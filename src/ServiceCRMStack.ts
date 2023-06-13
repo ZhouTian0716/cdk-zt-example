@@ -3,7 +3,7 @@ import { Construct } from "constructs"
 import { createImageS3Bucket } from "./ImageBucketStack"
 import { createDynamoDB } from "./DynamodbStack"
 import { createWebS3Bucket } from "./WebBucketStack"
-import { createCdkCloudFrontStack } from "./cdkCloudfront"
+import { createCdkCloudFrontStack } from "./CloudfrontStack"
 
 export class ServiceCRMStack extends Cdk.Stack {
   constructor(scope: Construct, id: string, props?: Cdk.StackProps) {
