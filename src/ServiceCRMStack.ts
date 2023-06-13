@@ -18,7 +18,6 @@ export class ServiceCRMStack extends Cdk.Stack {
 
     // const arn = process.env.CRM_DYNAMODB_ARN
     //const db = Dynamodb.Table.fromTableArn(this, "CRM_Table", arn ? arn : config.dynamodb_arn)
-
     // TODO: add your code
     // ...
     // create ddb
