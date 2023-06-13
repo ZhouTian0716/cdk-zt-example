@@ -50,6 +50,7 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
     },
     {
       aliases: [domainName, `www.${domainName}`],
+      // aliases: [domainName],
       sslMethod: Cloudfront.SSLMethod.SNI,
       securityPolicy: Cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
     }

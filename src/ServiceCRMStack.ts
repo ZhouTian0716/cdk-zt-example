@@ -10,7 +10,8 @@ export class ServiceCRMStack extends Cdk.Stack {
     super(scope, id, props)
 
     const env = process.env.CRM_ENV
-    const config = require(`../src/constants.${env}`) // eslint-disable-line
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const config = require(`../src/constants.${env}`)
     const ddbTableName = config.DDB_TABLE_NAME
     const webBucketName = config.WEB_BUCKET_NAME
     const imageBucketName = config.IAMGE_BUCKET_NAME

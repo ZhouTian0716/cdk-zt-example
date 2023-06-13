@@ -1,10 +1,6 @@
 {
-  "hosted-zone:account=117089941413:domainName=oliviacai.com:region=us-east-1": {
-    "Id": "/hostedzone/Z06396901OIS4SWIGXFX2",
-    "Name": "oliviacai.com."
-  },
   "hosted-zone:account=118082329241:domainName=jr.cyberlark.com.au:region=us-east-1": {
-    "Id": "/hostedzone/Z06314391KDTK2COGHHYW",
+    "Id": "/hostedzone/Z03602172XG6KFLCGGV63",
     "Name": "jr.cyberlark.com.au."
   }
 }
