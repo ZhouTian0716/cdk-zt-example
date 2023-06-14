@@ -20,7 +20,6 @@ bedrooms: Number - The number of Bedrooms
 carSpaces: Number - The number of CarSpaces
 propertyType: String - Property Type(townhouse, house, unit, apartment)
 propertyArea: Number - The Area of the Property
-propertyAreaUnit: String - The Area units of the Property
 landPrice:Number - The land price of the Property
 housePrice:Number - The house price of the property
 POI: MapList - record name(string), coordinates(Map), address(string) in each POI
