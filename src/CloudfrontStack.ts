@@ -5,8 +5,9 @@ import * as Cloudwatch from "aws-cdk-lib/aws-cloudwatch"
 import * as Route53 from "aws-cdk-lib/aws-route53"
 import * as Targets from "aws-cdk-lib/aws-route53-targets"
 import * as Certmgr from "aws-cdk-lib/aws-certificatemanager"
+import * as Apigateway from "aws-cdk-lib/aws-apigateway"
 
-export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: string, domainName: string) {
+export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucketName: string, domainName: string) {
   const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
@@ -54,6 +55,15 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
       securityPolicy: Cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
     }
   )
+  // Grant permissions for CloudFront to access the bucket
+  staticWebsiteBucket.grantRead(cloudfrontOAI)
+
+  // Create a new REST API
+  const api = new Apigateway.RestApi(stack, "RestApi", {
+    deploy: true,
+  })
+  // Add 'ANY' method to the root resource
+  api.root.addMethod("ANY")
 
   const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "react-app-distro", {
     viewerCertificate: viewerCert,
@@ -66,6 +76,19 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
         behaviors: [
           {
             isDefaultBehavior: true,
+          },
+        ],
+      },
+      {
+        customOriginSource: {
+          domainName: `${api.restApiId}.execute-api.${stack.region}.${stack.urlSuffix}`,
+          httpPort: 80,
+          httpsPort: 443,
+          originProtocolPolicy: Cloudfront.OriginProtocolPolicy.HTTPS_ONLY,
+        },
+        behaviors: [
+          {
+            pathPattern: "/api/*",
             compress: true,
             allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
           },
@@ -73,6 +96,7 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
       },
     ],
   })
+
   new Route53.ARecord(stack, "AliasRecord", {
     zone: zone,
     recordName: domainName,
@@ -93,5 +117,10 @@ export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: strin
   new Cdk.CfnOutput(stack, "DomainName", {
     value: domainName,
     description: "The domain name of the website",
+  })
+
+  new Cdk.CfnOutput(stack, "ApiUrl", {
+    value: api.url,
+    description: "The APIUrl of the website",
   })
 }
