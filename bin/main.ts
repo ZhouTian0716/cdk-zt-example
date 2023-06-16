@@ -10,6 +10,7 @@ const env = process.env.CRM_ENV // set the local environment variable before run
 const config = require(`../src/constants.${env}`)// eslint-disable-line
 
 const REGION = config.REGION
+const ACCOUNT = config.ACCOUNT
 const stackName = `JR-RealEstate-${env}`
 console.log(`stackName: ${stackName}`)
 
@@ -17,6 +18,7 @@ console.log(`stackName: ${stackName}`)
 new ServiceCRMStack(app, stackName, {
   env: {
     region: REGION,
+    account: ACCOUNT,
   },
 })
 app.synth()
