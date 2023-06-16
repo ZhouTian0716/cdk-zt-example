@@ -15,6 +15,8 @@ export function createCdkCloudFrontStack(
   api: Apigateway.RestApi,
   certificateArn: string
 ) {
+  const apiDomainName = "api.oliviacai.com"
+
   const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
@@ -60,7 +62,7 @@ export function createCdkCloudFrontStack(
   // Grant permissions for CloudFront to access the bucket
   staticWebsiteBucket.grantRead(cloudfrontOAI)
 
-  const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "react-app-distro", {
+  const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "reactAppDistro", {
     viewerCertificate: viewerCert,
     originConfigs: [
       {
@@ -83,7 +85,7 @@ export function createCdkCloudFrontStack(
         },
         behaviors: [
           {
-            pathPattern: "/api/*",
+            pathPattern: "/*",
             compress: true,
             allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
           },
@@ -91,6 +93,24 @@ export function createCdkCloudFrontStack(
       },
     ],
   })
+
+  const APIGatewayCertificate = new Certmgr.Certificate(stack, "APIGatewayCertificate", {
+    domainName: apiDomainName,
+    validation: Certmgr.CertificateValidation.fromDns(zone),
+  })
+
+  const customDomain = new Apigateway.DomainName(stack, "CustomDomain", {
+    domainName: apiDomainName,
+    certificate: APIGatewayCertificate,
+    endpointType: Apigateway.EndpointType.REGIONAL,
+  })
+
+  new Apigateway.BasePathMapping(stack, "ApiBasePathMapping", {
+    domainName: customDomain,
+    restApi: api,
+    basePath: "unique-base-path",
+  })
+  customDomain.addBasePathMapping(api)
 
   new Route53.ARecord(stack, "AliasRecord", {
     zone: zone,
@@ -104,6 +124,12 @@ export function createCdkCloudFrontStack(
     target: Route53.RecordTarget.fromAlias(new Targets.CloudFrontTarget(distribution)),
   })
 
+  new Route53.ARecord(stack, "ApiAliasRecord", {
+    zone: zone,
+    recordName: apiDomainName,
+    target: Route53.RecordTarget.fromAlias(new Targets.ApiGatewayDomain(customDomain)),
+  })
+
   new Cdk.CfnOutput(stack, "BucketWebsiteURL", {
     value: staticWebsiteBucket.bucketWebsiteUrl,
     description: "The URL of the website",
@@ -115,7 +141,7 @@ export function createCdkCloudFrontStack(
   })
 
   new Cdk.CfnOutput(stack, "ApiUrl", {
-    value: api.url,
-    description: "The APIUrl of the website",
+    value: `https://${customDomain.domainName}`,
+    description: "The Custom domain for the API",
   })
 }
