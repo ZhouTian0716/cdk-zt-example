@@ -6,7 +6,7 @@
   },
   "context": {
     "config": {
-      "environment": "dave"
+      "environment": "douglas"
     },
     "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
     "@aws-cdk/core:checkSecretUsage": true,

@@ -9,4 +9,8 @@ export interface IConfig {
   readonly certificateArnSydney: string
   readonly zoneId: string
   readonly zoneDomain: string
+  readonly webBucketName: string
+  readonly imageBucketName: string
+  readonly ddbTableName: string
+  readonly stackID: string
 }
