@@ -4,6 +4,7 @@ import { createImageS3Bucket } from "./ImageBucketStack"
 import { createDynamoDB } from "./DynamodbStack"
 import { createWebS3Bucket } from "./WebBucketStack"
 import { createCdkCloudFrontStack } from "./CloudfrontStack"
+import { createApiGatewayStack } from "./ApiGatewayStack"
 
 export class ServiceCRMStack extends Cdk.Stack {
   constructor(scope: Construct, id: string, props?: Cdk.StackProps) {
@@ -21,6 +22,8 @@ export class ServiceCRMStack extends Cdk.Stack {
     //const db = Dynamodb.Table.fromTableArn(this, "CRM_Table", arn ? arn : config.dynamodb_arn)
     // TODO: add your code
     // ...
+    const api = createApiGatewayStack(this)
+
     // create ddb
     createDynamoDB(this, ddbTableName)
     // create webBucket
@@ -28,6 +31,6 @@ export class ServiceCRMStack extends Cdk.Stack {
     // create imageBucket
     createImageS3Bucket(this, imageBucketName)
     // create cdkfrontstack
-    createCdkCloudFrontStack(this, webBucketName, domainName)
+    createCdkCloudFrontStack(this, webBucketName, domainName, api)
   }
 }

@@ -6,9 +6,8 @@ import * as Route53 from "aws-cdk-lib/aws-route53"
 import * as Targets from "aws-cdk-lib/aws-route53-targets"
 import * as Certmgr from "aws-cdk-lib/aws-certificatemanager"
 import * as Apigateway from "aws-cdk-lib/aws-apigateway"
-import * as lambda from "aws-cdk-lib/aws-lambda"
 
-export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucketName: string, domainName: string) {
+export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucketName: string, domainName: string, api: Apigateway.RestApi) {
   const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
@@ -60,40 +59,12 @@ export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucket
   staticWebsiteBucket.grantRead(cloudfrontOAI)
 
   // Create a new REST API
-  const api = new Apigateway.RestApi(stack, "RestApi", {
-    deploy: true,
-  })
-  // const helloWorldLambda = new lambda.Function(stack, "HelloWorldLambda", {
-  //   code: new lambda.AssetCode("lambda"), // Path to code directory
-  //   handler: "index.handler", // The exported handler function in your code
-  //   runtime: lambda.Runtime.NODEJS_14_X, // Runtime environment
-  //   environment: {
-  //     // Optional environment variables
-  //     VAR_NAME: "value",
-  //   },
+  // const api = new Apigateway.RestApi(stack, "RestApi", {
+  //   deploy: true,
   // })
 
-  // // Define the API Gateway and connect it to the Lambda function
-  // const api = new Apigateway.LambdaRestApi(stack, "Endpoint", {
-  //   handler: helloWorldLambda,
-  //   defaultMethodOptions: {
-  //     authorizationType: Apigateway.AuthorizationType.NONE,
-  //   },
-  // })
-  //   const api = new Apigateway.RestApi(stack, "Endpoint", {
-  //     defaultMethodOptions: {
-  //       authorizationType: Apigateway.AuthorizationType.NONE,
-  //     },
-  // });
-  // Create resources (i.e., routes) and methods for each Lambda function
-  // const resource1 = api.root.addResource("resource1")
-  // resource1.addMethod("GET", new Apigateway.LambdaIntegration(helloWorldLambda1))
-
-  // const resource2 = api.root.addResource("resource2")
-  // resource2.addMethod("GET", new Apigateway.LambdaIntegration(helloWorldLambda2))
-
-  // Add 'ANY' method to the root resource
-  api.root.addMethod("ANY")
+  // // Add 'ANY' method to the root resource
+  // api.root.addMethod("ANY")
 
   const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "react-app-distro", {
     viewerCertificate: viewerCert,
