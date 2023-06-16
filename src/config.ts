@@ -13,4 +13,5 @@ export interface IConfig {
   readonly imageBucketName: string
   readonly ddbTableName: string
   readonly stackID: string
+  readonly certificateArn: string
 }

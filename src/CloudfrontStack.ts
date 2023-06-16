@@ -7,17 +7,19 @@ import * as Targets from "aws-cdk-lib/aws-route53-targets"
 import * as Certmgr from "aws-cdk-lib/aws-certificatemanager"
 import * as Apigateway from "aws-cdk-lib/aws-apigateway"
 
-export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucketName: string, domainName: string, api: Apigateway.RestApi) {
+export function createCdkCloudFrontStack(
+  this: any,
+  stack: Cdk.Stack,
+  web_bucketName: string,
+  domainName: string,
+  api: Apigateway.RestApi,
+  certificateArn: string
+) {
   const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
 
-  const cert = new Certmgr.DnsValidatedCertificate(stack, "Certificate", {
-    domainName: domainName,
-    subjectAlternativeNames: [`*.${domainName}`],
-    hostedZone: zone,
-    region: stack.region,
-  })
+  const cert = Certmgr.Certificate.fromCertificateArn(stack, "Certificate", certificateArn)
 
   const cloudfrontOAI = new Cloudfront.OriginAccessIdentity(stack, "CloudfrontOAI", {
     comment: `Cloudfront OAI for ${domainName}`,
@@ -57,14 +59,6 @@ export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucket
   )
   // Grant permissions for CloudFront to access the bucket
   staticWebsiteBucket.grantRead(cloudfrontOAI)
-
-  // Create a new REST API
-  // const api = new Apigateway.RestApi(stack, "RestApi", {
-  //   deploy: true,
-  // })
-
-  // // Add 'ANY' method to the root resource
-  // api.root.addMethod("ANY")
 
   const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "react-app-distro", {
     viewerCertificate: viewerCert,
