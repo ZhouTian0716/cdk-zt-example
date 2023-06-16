@@ -18,6 +18,7 @@ export class ServiceCRMStack extends Cdk.Stack {
     const imageBucketName = config.IAMGE_BUCKET_NAME
     const domainName = config.DOMAIN_NAME
     const certificateArn = config.CERTIFICATE_ARN
+    const apiDomainName = config.API_COSTUME_DOMAIN
 
     // const arn = process.env.CRM_DYNAMODB_ARN
     //const db = Dynamodb.Table.fromTableArn(this, "CRM_Table", arn ? arn : config.dynamodb_arn)
@@ -32,6 +33,6 @@ export class ServiceCRMStack extends Cdk.Stack {
     // create imageBucket
     createImageS3Bucket(this, imageBucketName)
     // create cdkfrontstack
-    createCdkCloudFrontStack(this, webBucketName, domainName, api, certificateArn)
+    createCdkCloudFrontStack(this, webBucketName, domainName, api, certificateArn, apiDomainName)
   }
 }

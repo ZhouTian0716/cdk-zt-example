@@ -13,10 +13,9 @@ export function createCdkCloudFrontStack(
   web_bucketName: string,
   domainName: string,
   api: Apigateway.RestApi,
-  certificateArn: string
+  certificateArn: string,
+  apiDomainName: string
 ) {
-  const apiDomainName = "api.oliviacai.com"
-
   const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
