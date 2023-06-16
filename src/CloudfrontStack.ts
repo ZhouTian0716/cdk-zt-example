@@ -6,17 +6,12 @@ import * as Route53 from "aws-cdk-lib/aws-route53"
 import * as Targets from "aws-cdk-lib/aws-route53-targets"
 import * as Certmgr from "aws-cdk-lib/aws-certificatemanager"
 
-export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: string, domainName: string) {
+export function createCdkCloudFrontStack(stack: Cdk.Stack, web_bucketName: string, domainName: string, certificateArn: string) {
   const staticWebsiteBucket = Cdk.aws_s3.Bucket.fromBucketName(stack, "ExistingS3Bucket", web_bucketName)
 
   const zone = Route53.HostedZone.fromLookup(stack, "Zone", { domainName })
 
-  const cert = new Certmgr.DnsValidatedCertificate(stack, "Certificate", {
-    domainName: domainName,
-    subjectAlternativeNames: [`*.${domainName}`],
-    hostedZone: zone,
-    region: stack.region,
-  })
+  const cert = Certmgr.Certificate.fromCertificateArn(stack, "Certificate", certificateArn)
 
   const cloudfrontOAI = new Cloudfront.OriginAccessIdentity(stack, "CloudfrontOAI", {
     comment: `Cloudfront OAI for ${domainName}`,
