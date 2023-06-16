@@ -60,26 +60,26 @@ export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucket
   staticWebsiteBucket.grantRead(cloudfrontOAI)
 
   // Create a new REST API
-  // const api = new Apigateway.RestApi(stack, "RestApi", {
-  //   deploy: true,
+  const api = new Apigateway.RestApi(stack, "RestApi", {
+    deploy: true,
+  })
+  // const helloWorldLambda = new lambda.Function(stack, "HelloWorldLambda", {
+  //   code: new lambda.AssetCode("lambda"), // Path to code directory
+  //   handler: "index.handler", // The exported handler function in your code
+  //   runtime: lambda.Runtime.NODEJS_14_X, // Runtime environment
+  //   environment: {
+  //     // Optional environment variables
+  //     VAR_NAME: "value",
+  //   },
   // })
-  const helloWorldLambda = new lambda.Function(stack, "HelloWorldLambda", {
-    code: new lambda.AssetCode("lambda"), // Path to code directory
-    handler: "index.handler", // The exported handler function in your code
-    runtime: lambda.Runtime.NODEJS_14_X, // Runtime environment
-    environment: {
-      // Optional environment variables
-      VAR_NAME: "value",
-    },
-  })
 
-  // Define the API Gateway and connect it to the Lambda function
-  const api = new Apigateway.LambdaRestApi(stack, "Endpoint", {
-    handler: helloWorldLambda,
-    defaultMethodOptions: {
-      authorizationType: Apigateway.AuthorizationType.NONE,
-    },
-  })
+  // // Define the API Gateway and connect it to the Lambda function
+  // const api = new Apigateway.LambdaRestApi(stack, "Endpoint", {
+  //   handler: helloWorldLambda,
+  //   defaultMethodOptions: {
+  //     authorizationType: Apigateway.AuthorizationType.NONE,
+  //   },
+  // })
   //   const api = new Apigateway.RestApi(stack, "Endpoint", {
   //     defaultMethodOptions: {
   //       authorizationType: Apigateway.AuthorizationType.NONE,
