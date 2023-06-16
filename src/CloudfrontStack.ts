@@ -80,6 +80,17 @@ export function createCdkCloudFrontStack(this: any, stack: Cdk.Stack, web_bucket
       authorizationType: Apigateway.AuthorizationType.NONE,
     },
   })
+  //   const api = new Apigateway.RestApi(stack, "Endpoint", {
+  //     defaultMethodOptions: {
+  //       authorizationType: Apigateway.AuthorizationType.NONE,
+  //     },
+  // });
+  // Create resources (i.e., routes) and methods for each Lambda function
+  // const resource1 = api.root.addResource("resource1")
+  // resource1.addMethod("GET", new Apigateway.LambdaIntegration(helloWorldLambda1))
+
+  // const resource2 = api.root.addResource("resource2")
+  // resource2.addMethod("GET", new Apigateway.LambdaIntegration(helloWorldLambda2))
 
   // Add 'ANY' method to the root resource
   api.root.addMethod("ANY")
