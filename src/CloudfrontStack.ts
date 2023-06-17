@@ -72,7 +72,6 @@ export function createCdkCloudFrontStack(
             isDefaultBehavior: true,
             compress: true,
             allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
-            viewerProtocolPolicy: Cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           },
         ],
       },
