@@ -23,7 +23,7 @@ export function createCdkCloudFrontStack(
   const cert = Certmgr.Certificate.fromCertificateArn(stack, "Certificate", certificateArn)
 
   const cloudfrontOAI = new Cloudfront.OriginAccessIdentity(stack, "CloudfrontOAI", {
-    comment: `Cloudfront OAI for ${domainName}`,
+    comment: `Cloudfront OAI for ${staticWebsiteBucket}`,
   })
 
   staticWebsiteBucket.addToResourcePolicy(
@@ -53,13 +53,11 @@ export function createCdkCloudFrontStack(
         }),
     },
     {
-      aliases: [domainName, `www.${domainName}`],
+      aliases: [domainName, `www.${domainName}`, apiDomainName],
       sslMethod: Cloudfront.SSLMethod.SNI,
       securityPolicy: Cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
     }
   )
-  // Grant permissions for CloudFront to access the bucket
-  staticWebsiteBucket.grantRead(cloudfrontOAI)
 
   const distribution = new Cloudfront.CloudFrontWebDistribution(stack, "reactAppDistro", {
     viewerCertificate: viewerCert,
@@ -72,6 +70,9 @@ export function createCdkCloudFrontStack(
         behaviors: [
           {
             isDefaultBehavior: true,
+            compress: true,
+            allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+            viewerProtocolPolicy: Cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           },
         ],
       },
