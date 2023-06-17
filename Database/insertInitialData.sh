@@ -2,7 +2,7 @@ echo "Adding intial items ..."
 
 aws dynamodb put-item \
     --table-name Properties \
-    --item file://initial222.json \
+    --item file://initialProperties.json \
     --return-consumed-capacity TOTAL \
     --return-item-collection-metrics SIZE
     
