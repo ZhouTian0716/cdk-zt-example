@@ -1,6 +1,5 @@
 import * as Cdk from "aws-cdk-lib"
 import * as Cloudfront from "aws-cdk-lib/aws-cloudfront"
-import * as Iam from "aws-cdk-lib/aws-iam"
 import * as Cloudwatch from "aws-cdk-lib/aws-cloudwatch"
 import * as Route53 from "aws-cdk-lib/aws-route53"
 import * as Targets from "aws-cdk-lib/aws-route53-targets"
