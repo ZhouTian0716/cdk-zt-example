@@ -13,7 +13,7 @@ export class ServiceCRMStack extends Cdk.Stack {
     const env = process.env.CRM_ENV
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const config = require(`../src/constants.${env}`)
-    const propertyTable = config.Property_DDB_TABLE_NAME
+    const propertyTable = config.PROPERTY_DDB_TABLE_NAME
     const webBucketName = config.WEB_BUCKET_NAME
     const imageBucketName = config.IAMGE_BUCKET_NAME
     const domainName = config.DOMAIN_NAME
