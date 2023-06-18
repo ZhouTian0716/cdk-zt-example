@@ -11,12 +11,10 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
   })
 
   // defines an API Gateway REST API resource
-  const api = new Apigateway.LambdaRestApi(stack, "Endpoint", {
-    handler: helloLambda,
-    defaultMethodOptions: {
-      apiKeyRequired: true, 
-    },
+  const api = new Apigateway.RestApi(stack, 'HelloApi', {
+    restApiName: 'Hello Service',
   });
+
   // define the /hello resource
   const helloLambdaResource = api.root.addResource('hello');
   helloLambdaResource.addMethod('GET', new Apigateway.LambdaIntegration(helloLambda));
