@@ -14,4 +14,5 @@ export interface IConfig {
   readonly ddbTableName: string
   readonly stackID: string
   readonly certificateArn: string
+  readonly apiDomainName: string
 }
