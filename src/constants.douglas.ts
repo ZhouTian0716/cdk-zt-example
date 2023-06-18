@@ -1,0 +1,6 @@
+export const WEB_BUCKET_NAME = "web-host-s3bucket-20230616"
+export const IAMGE_BUCKET_NAME = "images-saving-bucket-20230616"
+export const DDB_TABLE_NAME = "Property-Table-202306016"
+export const REGION = "ap-southeast-2"
+export const ACCOUNT = "118082329241"
+export const DOMAIN_NAME = "jr.cyberlark.com.au"
