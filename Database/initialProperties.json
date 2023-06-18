@@ -1,117 +1,110 @@
-{
-    "Properties": [
-        {
-            "Item" :{
-                "PK": {"S": "Project"},
-                "id": {"N": "1"},
-                "Address": {"S": "14 Goldsbrough Road"},
-                "Suburb": {"S": "Taringa"},
-                "Postcode": {"S": "4068"},
-                "State": {"S": "QLD"},
-                "CityCouncil": {"S": "Queenland"},
-                "YearBuilt": {"N": "2005"},
-                "Coordinates": {"M": {"Latitude": {"N": "-17.4918"}, "Longitude": {"N": "152.9806"}}},
-                "Agent": {"S": "Dave"},
-                "Bathrooms": {"N": "3.5"},
-                "Bedrooms": {"N": "5"},
-                "CarSpaces": {"N": "2"},
-                "PropertyType": {"S": "Double block house"},
-                "PropertyArea": {"N": "880"},
-                "LandPrice": {"N": "None"},
-                "HousePrice": {"N": "2500000"},
-                "POI": {"L": [
-                {"M": {"Name": {"S": "Indooroopilly Shopping Centre"}, "Coordinates": {"M": {"Latitude": {"N": "-27.4992"}, "Longitude": {"N": "152.9723"}}}, "Address": {"S": "322 Moggill Rd, Indooroopilly QLD 4068"}}},
-                {"M": {"Name": {"S": "Toowong Village"}, "Coordinates": {"M": {"Latitude": {"N": "-27.4847"}, "Longitude": {"N": "152.9928"}}}, "Address": {"S": "9 Sherwood Rd, Toowong QLD 4066"}}}
-                ]},
-                "ServiceType": {"S": "second"},
-                "SettlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
-                "Files": {"M": {"ImagesID": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
-            }
-     
-        },
-        {
-            "Item" :{
-                "PK": {"S": "Project"},
-                "id": {"N": "2"},
-                "Address": {"S": "1404/62 Logan Road"},
-                "Suburb": {"S": "Woolloongabba"},
-                "Postcode": {"S": "4102"},
-                "State": {"S": "QLD"},
-                "CityCouncil": {"S": "Queenland"},
-                "YearBuilt": {"N": "None"},
-                "Coordinates": {"M": {"Latitude": {"N": "-27.4885"}, "Longitude": {"N": "153.0382"}}},
-                "Agent": {"S": "Anny"},
-                "Bathrooms": {"N": "2"},
-                "Bedrooms": {"N": "2"},
-                "CarSpaces": {"N": "1"},
-                "PropertyType": {"S": "Unit"},
-                "PropertyArea": {"N": "98"},
-                "LandPrice": {"N": "None"},
-                "HousePrice": {"N": "799000"},
-                "POI": {"L": [
-                {"M": {"Name": {"S": "Woolloongabba Place Park"}, "Coordinates": {"M": {"Latitude": {"N": "-27.4859"}, "Longitude": {"N": "153.0362"}}}, "Address": {"S": "810 Stanley St, Woolloongabba QLD 4102"}}},
-                {"M": {"Name": {"S": "East Brisbane State School"}, "Coordinates": {"M": {"Latitude": {"N": "-27.4862"}, "Longitude": {"N": "153.0397"}}}, "Address": {"S": "56 Wellington Rd, East Brisbane QLD 4169"}}}
-                ]},
-                "ServiceType": {"S": "new"},
-                "SettlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
-                "Files": {"M": {"ImagesID": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
-            }
-        },
-        {
-            "Item" :{
-                "PK": {"S": "Project"},
-                "id": {"N": "3"},
-                "Address": {"S": "236 Bourke Street"},
-                "Suburb": {"S": "Darlinghurst"},
-                "Postcode": {"S": "2010"},
-                "State": {"S": "NSW"},
-                "CityCouncil": {"S": "Sydney"},
-                "YearBuilt": {"N": "None"},
-                "Coordinates": {"M": {"Latitude": {"N": "-33.8770"}, "Longitude": {"N": "151.2176"}}},
-                "Agent": {"S": "Joe"},
-                "Bathrooms": {"N": "5"},
-                "Bedrooms": {"N": "5"},
-                "CarSpaces": {"N": "1"},
-                "PropertyType": {"S": "house"},
-                "PropertyArea": {"N": "155"},
-                "LandPrice": {"N": "None"},
-                "HousePrice": {"N": "800000"},
-                "POI": {"L": [
-                {"M": {"Name": {"S": "Frazer Fountain Hyde Park"}, "Coordinates": {"M": {"Latitude": {"N": "-33.8747"}, "Longitude": {"N": "151.2121"}}}, "Address": {"S": "120 Elizabeth St, Sydney NSW 2000"}}},
-                {"M": {"Name": {"S": "Darlinghurst Public School"}, "Coordinates": {"M": {"Latitude": {"N": "-33.8783"}, "Longitude": {"N": "151.2234"}}}, "Address": {"S": "Womerah Ave, Potts Point NSW 2011"}}}
-                ]},
-                "ServiceType": {"S": "new"},
-                "SettlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
-                "Files": {"M": {"ImagesID": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}             
-            }
-        },
-        {
-            "PK": {"S": "Project"},
-            "id": {"N": "4"},
-            "Address": {"S": "12/265 Palmer Street"},
-            "Suburb": {"S": "Darlinghurst"},
-            "Postcode": {"S": "2010"},
-            "State": {"S": "NSW"},
-            "CityCouncil": {"S": "Sydney"},
-            "YearBuilt": {"N": "None"},
-            "Coordinates": {"M": {"Latitude": {"N": "-33.8790"}, "Longitude": {"N": "151.2158"}}},
-            "Agent": {"S": "Lily"},
-            "Bathrooms": {"N": "1"},
-            "Bedrooms": {"N": "1"},
-            "CarSpaces": {"N": "0"},
-            "PropertyType": {"S": "Appartment"},
-            "PropertyArea": {"N": "45"},
-            "LandPrice": {"N": "None"},
-            "HousePrice": {"N": "1515000"},
-            "POI": {"L": [
-            {"M": {"Name": {"S": "Harmony Park"}, "Coordinates": {"M": {"Latitude": {"N": "-33.8795"}, "Longitude": {"N": "151.2117"}}}, "Address": {"S": "147 Goulburn St, Surry Hills NSW 2010"}}},
-            {"M": {"Name": {"S": "Crown Street Public School"}, "Coordinates": {"M": {"Latitude": {"N": "-33.8819"}, "Longitude": {"N": "151.2149"}}}, "Address": {"S": "356 Crown St, Surry Hills NSW 2010"}}}
-            ]},
-            "ServiceType": {"S": "new"},
-            "SettlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
-            "Files": {"M": {"ImagesID": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
-        }
-    ]
-}
-    
+[{
+    "Item" :{
+        "PK": {"S": "Project"},
+        "ID": {"N": "1"},
+        "address": {"S": "14 Goldsbrough Road"},
+        "suburb": {"S": "Taringa"},
+        "postcode": {"S": "4068"},
+        "state": {"S": "QLD"},
+        "cityCouncil": {"S": "Queenland"},
+        "yearBuilt": {"N": "2005"},
+        "coordinates": {"M": {"latitude": {"N": "-17.4918"}, "longitude": {"N": "152.9806"}}},
+        "agent": {"S": "Dave"},
+        "bathrooms": {"N": "3.5"},
+        "bedrooms": {"N": "5"},
+        "carSpaces": {"N": "2"},
+        "propertyType": {"S": "Double block house"},
+        "propertyArea": {"N": "880"},
+        "landPrice": {"N": "20000"},
+        "housePrice": {"N": "2500000"},
+        "POI": {"L": [
+        {"M": {"recordName": {"S": "Indooroopilly Shopping Centre"}, "coordinates": {"M": {"latitude": {"N": "-27.4992"}, "longitude": {"N": "152.9723"}}}, "address": {"S": "322 Moggill Rd, Indooroopilly QLD 4068"}}},
+        {"M": {"recordName": {"S": "Toowong Village"}, "coordinates": {"M": {"latitude": {"N": "-27.4847"}, "longitude": {"N": "152.9928"}}}, "address": {"S": "9 Sherwood Rd, Toowong QLD 4066"}}}
+        ]},
+        "sourceType": {"S": "second"},
+        "settlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
+        "files": {"M": {"FilesId": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
+    }
+},{
+    "Item" :{
+        "PK": {"S": "Project"},
+        "ID": {"N": "2"},
+        "address": {"S": "1404/62 Logan Road"},
+        "suburb": {"S": "Woolloongabba"},
+        "postcode": {"S": "4102"},
+        "state": {"S": "QLD"},
+        "cityCouncil": {"S": "Queenland"},
+        "yearBuilt": {"N": "2011"},
+        "coordinates": {"M": {"latitude": {"N": "-27.4885"}, "longitude": {"N": "153.0382"}}},
+        "agent": {"S": "Anny"},
+        "bathrooms": {"N": "2"},
+        "bedrooms": {"N": "2"},
+        "carSpaces": {"N": "1"},
+        "propertyType": {"S": "Unit"},
+        "propertyArea": {"N": "98"},
+        "landPrice": {"N": "1000"},
+        "housePrice": {"N": "799000"},
+        "POI": {"L": [
+        {"M": {"recordName": {"S": "Woolloongabba Place Park"}, "coordinates": {"M": {"latitude": {"N": "-27.4859"}, "longitude": {"N": "153.0362"}}}, "address": {"S": "810 Stanley St, Woolloongabba QLD 4102"}}},
+        {"M": {"recordName": {"S": "East Brisbane State School"}, "coordinates": {"M": {"latitude": {"N": "-27.4862"}, "longitude": {"N": "153.0397"}}}, "address": {"S": "56 Wellington Rd, East Brisbane QLD 4169"}}}
+        ]},
+        "serviceType": {"S": "new"},
+        "settlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
+        "files": {"M": {"FilesId": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
+    }
+},{
+    "Item" :{
+        "PK": {"S": "Project"},
+        "ID": {"N": "3"},
+        "address": {"S": "236 Bourke Street"},
+        "suburb": {"S": "Darlinghurst"},
+        "postcode": {"S": "2010"},
+        "state": {"S": "NSW"},
+        "cityCouncil": {"S": "Sydney"},
+        "yearBuilt": {"N": "2001"},
+        "coordinates": {"M": {"latitude": {"N": "-33.8770"}, "longitude": {"N": "151.2176"}}},
+        "agent": {"S": "Joe"},
+        "bathrooms": {"N": "5"},
+        "bedrooms": {"N": "5"},
+        "carSpaces": {"N": "1"},
+        "propertyType": {"S": "house"},
+        "propertyArea": {"N": "155"},
+        "landPrice": {"N": "3000"},
+        "housePrice": {"N": "800000"},
+        "POI": {"L": [
+        {"M": {"recordName": {"S": "Frazer Fountain Hyde Park"}, "coordinates": {"M": {"latitude": {"N": "-33.8747"}, "longitude": {"N": "151.2121"}}}, "address": {"S": "120 Elizabeth St, Sydney NSW 2000"}}},
+        {"M": {"recordName": {"S": "Darlinghurst Public School"}, "coordinates": {"M": {"latitude": {"N": "-33.8783"}, "longitude": {"N": "151.2234"}}}, "address": {"S": "Womerah Ave, Potts Point NSW 2011"}}}
+        ]},
+        "ServiceType": {"S": "new"},
+        "SettlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
+        "Files": {"M": {"ImagesId": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}             
+    }
+},{
+    "Item" :{
+        "PK": {"S": "Project"},
+        "ID": {"N": "4"},
+        "address": {"S": "12/265 Palmer Street"},
+        "suburb": {"S": "Darlinghurst"},
+        "postcode": {"S": "2010"},
+        "state": {"S": "NSW"},
+        "cityCouncil": {"S": "Sydney"},
+        "yearBuilt": {"N": "2001"},
+        "coordinates": {"M": {"latitude": {"N": "-33.8790"}, "longitude": {"N": "151.2158"}}},
+        "agent": {"S": "Lily"},
+        "bathrooms": {"N": "1"},
+        "bedrooms": {"N": "1"},
+        "carSpaces": {"N": "0"},
+        "propertyType": {"S": "Appartment"},
+        "propertyArea": {"N": "45"},
+        "landPrice": {"N": "2000"},
+        "housePrice": {"N": "1515000"},
+        "POI": {"L": [
+        {"M": {"recordName": {"S": "Harmony Park"}, "coordinates": {"M": {"latitude": {"N": "-33.8795"}, "longitude": {"N": "151.2117"}}}, "address": {"S": "147 Goulburn St, Surry Hills NSW 2010"}}},
+        {"M": {"recordName": {"S": "Crown Street Public School"}, "coordinates": {"M": {"latitude": {"N": "-33.8819"}, "longitude": {"N": "151.2149"}}}, "address": {"S": "356 Crown St, Surry Hills NSW 2010"}}}
+        ]},
+        "serviceType": {"S": "new"},
+        "settlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
+        "files": {"M": {"FilesId": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
+}}
+]
 
