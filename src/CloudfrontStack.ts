@@ -28,10 +28,10 @@ export function createCdkCloudFrontStack(
 
   staticWebsiteBucket.addToResourcePolicy(
     new Cdk.aws_iam.PolicyStatement({
-      sid: "s3BucketPublicRead",
+      sid: "PublicReadGetObject",
       effect: Cdk.aws_iam.Effect.ALLOW,
       actions: ["s3:GetObject"],
-      principals: [new Iam.CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
+      principals: [new Cdk.aws_iam.CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
       resources: [`${staticWebsiteBucket.bucketArn}/*`],
     })
   )
@@ -72,6 +72,7 @@ export function createCdkCloudFrontStack(
             isDefaultBehavior: true,
             compress: true,
             allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+            viewerProtocolPolicy: Cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Ensure redirect from HTTP to HTTPS
           },
         ],
       },
@@ -84,9 +85,10 @@ export function createCdkCloudFrontStack(
         },
         behaviors: [
           {
-            pathPattern: "/*",
+            pathPattern: "/api/*",
             compress: true,
             allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+            viewerProtocolPolicy: Cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Ensure redirect from HTTP to HTTPS
           },
         ],
       },
