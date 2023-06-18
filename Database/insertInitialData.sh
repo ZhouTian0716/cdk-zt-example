@@ -5,7 +5,6 @@ aws dynamodb put-item \
     --item file://initialProperties.json \
     --return-consumed-capacity TOTAL \
     --return-item-collection-metrics SIZE 
-    
 
 # aws dynamodb put-item \
 #     --table-name Files \
