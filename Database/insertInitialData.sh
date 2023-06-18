@@ -6,9 +6,10 @@ aws dynamodb put-item \
     --return-consumed-capacity TOTAL \
     --return-item-collection-metrics SIZE 
 
-# aws dynamodb put-item \
-#     --table-name Files \
-#     --item file://initialFiles.json \  
-
+aws dynamodb put-item \
+    --table-name Files \
+    --item file://initialFiles.json \
+    --return-consumed-capacity TOTAL \
+    --return-item-collection-metrics SIZE
 
 echo "Done"
