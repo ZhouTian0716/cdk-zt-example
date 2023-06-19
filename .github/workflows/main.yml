@@ -3,7 +3,7 @@ name: CDK Deploy
 on:
   push:
     branches:
-      - Olivia-cyx-patch-1
+      - 15-github-action-backend-deploy
 
 jobs:
   deploy:
