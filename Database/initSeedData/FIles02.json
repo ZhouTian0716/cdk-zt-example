@@ -2,7 +2,7 @@
     "PK": {"S": "File"},
     "ID": {"N": "2"},
     "url": {"S":"https://joe-jr-estate-media-storage.s3.ap-southeast-2.amazonaws.com/property-images/p1/2.jpg"},
-    "tag": {"S": "lvingRoom"},
+    "tag": {"S": "livingRoom"},
     "createBy": {"S": "Lily"},
     "createAt": {"S": "2020-09-11"}
 }
