@@ -1,6 +1,6 @@
 export interface IConfig {
-  // readonly aws_region: string
-  // readonly aws_account_name: string
+  readonly aws_region: string
+  readonly aws_account_name: string
   readonly environment: string
   readonly domainName: string
   readonly dynamodb_arn: string
@@ -13,4 +13,6 @@ export interface IConfig {
   readonly imageBucketName: string
   readonly ddbTableName: string
   readonly stackID: string
+  readonly certificateArn: string
+  readonly apiDomainName: string
 }
