@@ -33,5 +33,8 @@ jobs:
     - name: Bootstrap AWS CDK
       run: npx cdk bootstrap
 
+    - name: Synthesize CloudFormation template
+      run: npx cdk synth
+
     - name: Deploy stack
       run: npx cdk deploy --require-approval never
