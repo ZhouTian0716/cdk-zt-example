@@ -1,0 +1,26 @@
+{
+    "PK": {"S": "Project"},
+    "ID": {"N": "1"},
+    "address": {"S": "14 Goldsbrough Road"},
+    "suburb": {"S": "Taringa"},
+    "postcode": {"S": "4068"},
+    "state": {"S": "QLD"},
+    "cityCouncil": {"S": "Queenland"},
+    "yearBuilt": {"N": "2005"},
+    "coordinates": {"M": {"latitude": {"N": "-17.4918"}, "longitude": {"N": "152.9806"}}},
+    "agent": {"S": "Dave"},
+    "bathrooms": {"N": "3.5"},
+    "bedrooms": {"N": "5"},
+    "carSpaces": {"N": "2"},
+    "propertyType": {"S": "Double block house"},
+    "propertyArea": {"N": "880"},
+    "landPrice": {"N": "20000"},
+    "housePrice": {"N": "2500000"},
+    "POI": {"L": [
+    {"M": {"recordName": {"S": "Indooroopilly Shopping Centre"}, "coordinates": {"M": {"latitude": {"N": "-27.4992"}, "longitude": {"N": "152.9723"}}}, "address": {"S": "322 Moggill Rd, Indooroopilly QLD 4068"}}},
+    {"M": {"recordName": {"S": "Toowong Village"}, "coordinates": {"M": {"latitude": {"N": "-27.4847"}, "longitude": {"N": "152.9928"}}}, "address": {"S": "9 Sherwood Rd, Toowong QLD 4066"}}}
+    ]},
+    "sourceType": {"S": "second"},
+    "settlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
+    "files": {"M": {"FilesId": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}
+}

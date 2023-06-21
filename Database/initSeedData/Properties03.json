@@ -1,0 +1,26 @@
+{
+    "PK": {"S": "Project"},
+    "ID": {"N": "3"},
+    "address": {"S": "236 Bourke Street"},
+    "suburb": {"S": "Darlinghurst"},
+    "postcode": {"S": "2010"},
+    "state": {"S": "NSW"},
+    "cityCouncil": {"S": "Sydney"},
+    "yearBuilt": {"N": "2001"},
+    "coordinates": {"M": {"latitude": {"N": "-33.8770"}, "longitude": {"N": "151.2176"}}},
+    "agent": {"S": "Joe"},
+    "bathrooms": {"N": "5"},
+    "bedrooms": {"N": "5"},
+    "carSpaces": {"N": "1"},
+    "propertyType": {"S": "house"},
+    "propertyArea": {"N": "155"},
+    "landPrice": {"N": "3000"},
+    "housePrice": {"N": "800000"},
+    "POI": {"L": [
+    {"M": {"recordName": {"S": "Frazer Fountain Hyde Park"}, "coordinates": {"M": {"latitude": {"N": "-33.8747"}, "longitude": {"N": "151.2121"}}}, "address": {"S": "120 Elizabeth St, Sydney NSW 2000"}}},
+    {"M": {"recordName": {"S": "Darlinghurst Public School"}, "coordinates": {"M": {"latitude": {"N": "-33.8783"}, "longitude": {"N": "151.2234"}}}, "address": {"S": "Womerah Ave, Potts Point NSW 2011"}}}
+    ]},
+    "sourceType": {"S": "new"},
+    "settlementTime": {"M": {"year": {"S": "2024"}, "month": {"S": "June"}}},
+    "files": {"M": {"ImagesId": {"L": [{"N": "1"},{"N": "2"},{"N": "3"}]}, "isCoverPage": {"BOOL": true}, "isPublic": {"BOOL": true}}}             
+}

@@ -1,0 +1,8 @@
+{
+    "PK": {"S": "File"},
+    "ID": {"N": "1"},
+    "url": {"S":"https://joe-jr-estate-media-storage.s3.ap-southeast-2.amazonaws.com/property-images/p1/1.jpg"},
+    "tag": {"S": "houseOutside"},
+    "createBy": {"S": "Elva"},
+    "createAt": {"S": "2020-10-10"}
+}
