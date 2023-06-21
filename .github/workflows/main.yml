@@ -21,7 +21,7 @@ jobs:
       run: npm ci
 
   deploy:
-    if: github.ref == 'refs/heads/15-github-action-backend-deploy' 
+    if: github.ref == 'refs/heads/main' 
     needs: build
     runs-on: ubuntu-latest
     env:
