@@ -1,3 +1,10 @@
+
+If you want to transpile TypeScript to JavaScript and upload it to AWS Lambda during the deployment process, you'll need to add a step to your GitHub Actions pipeline that transpiles the TypeScript code before the Lambda function is created and deployed.
+
+Here's an example how you can do it:
+
+yaml
+Copy code
 name: CDK Build & Deploy
 
 on:
@@ -14,7 +21,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v2
       with:
         node-version: 16
 
@@ -27,7 +34,7 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/15-github-action-backend-deploy' 
     needs: build
-    runs-on: ubuntu-latest
+    runs_on: ubuntu-latest
     env:
       CRM_ENV: olivia
 
@@ -36,17 +43,14 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v2
       with:
         node-version: 16
-    
+
     - name: Install dependencies
       run: npm ci
 
-    - name: Transpile TypeScript
-      run: npx tsc src/lambdas/index.ts
-
-     - name: Set up AWS credentials
+    - name: Set up AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
