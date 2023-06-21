@@ -21,7 +21,7 @@ jobs:
       run: npm ci
 
   deploy:
-    if: github.ref == 'refs/heads/main' 
+    if: github.ref == 'refs/heads/15-github-action-backend-deploy' 
     needs: build
     runs-on: ubuntu-latest
     env:
@@ -40,7 +40,7 @@ jobs:
       run: npm ci
       
     - name: Transpile TypeScript
-      run: npx tsc src/lambdas/index.ts
+      run: npx tsc -p src/lambdas
 
     - name: Set up AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
