@@ -40,9 +40,6 @@ jobs:
       with:
         node-version: 16
 
-    - name: Transpile TypeScript
-      run: npx tsc src/lambdas/index.ts
-
     - name: CDK Synth
       run: npx cdk synth
 
