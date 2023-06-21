@@ -21,7 +21,7 @@ jobs:
       run: npm ci
 
   deploy:
-    if: github.ref == 'refs/heads/15-github-action-backend-deploy' 
+    if: github.ref == 'refs/heads/main' 
     needs: build
     runs-on: ubuntu-latest
     env:
@@ -49,6 +49,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
+    - name: Bootstrap AWS CDK
+      run: npx cdk bootstrap
+    
     - name: CDK Synth
       run: npx cdk synth
 
