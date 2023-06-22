@@ -9,17 +9,14 @@ import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam"
 
 export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
   // defines an AWS Lambda resource
-  // const helloLambda = new Lambda.Function(stack, "IndexHandler", {
-  //   runtime: Lambda.Runtime.NODEJS_16_X, // execution environment
-  //   code: Lambda.Code.fromAsset("./src/lambdas"), // code loaded from the directory
-  //   handler: "index.handler", // file is "hello", function is "handler"
-  // })
 
-  // const propertyLambda = new Lambda.Function(stack, "PropertyIndexHandler", {
-  //   runtime: Lambda.Runtime.NODEJS_16_X,
-  //   code: Lambda.Code.fromAsset("./src/lambdas"),
-  //   handler: "index.propertyHandler",
-  // })
+  const helloLambda = new NodejsFunction(stack, "HelloLambda", {
+    runtime: Lambda.Runtime.NODEJS_16_X,
+    handler: "helloHandler",
+    entry: join(__dirname, "/lambdas/index.js"),
+    tracing: Tracing.ACTIVE,
+    timeout: Duration.minutes(1),
+  })
 
   const propertyLambda = new NodejsFunction(stack, "PropertyLambda", {
     runtime: Lambda.Runtime.NODEJS_16_X,
@@ -45,9 +42,9 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
     restApiName: "Hello Service",
   })
 
-  // // define the /hello resource
-  // const helloLambdaResource = api.root.addResource("hello")
-  // helloLambdaResource.addMethod("GET", new Apigateway.LambdaIntegration(helloLambda))
+  // define the /hello resource
+  const helloLambdaResource = api.root.addResource("hello")
+  helloLambdaResource.addMethod("GET", new Apigateway.LambdaIntegration(helloLambda))
 
   const createPropertyResource = api.root.addResource("property")
   createPropertyResource.addMethod("POST", new Apigateway.LambdaIntegration(propertyLambda))
