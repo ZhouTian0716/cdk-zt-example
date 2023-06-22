@@ -19,10 +19,10 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
   const params: PutCommandInput = {
     TableName: "Property-Table-2023060171",
     Item: {
-      PROJECT: { S: body.PROJECT },
-      ID: { N: body.ID.toString() },
-      name: { S: body.name },
-      age: { N: body.age.toString() }
+      PROJECT: body.PROJECT,
+      ID: body.ID,
+      name: body.name,
+      age: body.age,
       // translate other attributes here
     },
   }
