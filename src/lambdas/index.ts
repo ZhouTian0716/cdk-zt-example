@@ -1,8 +1,40 @@
-exports.handler = async function (event: any) {
-  console.log("request:", JSON.stringify(event, undefined, 2))
+import DynamoDB from "./db/db"
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
+import { PutCommand, PutCommandInput } from "@aws-sdk/lib-dynamodb"
+import { BadRequestError, ForbiddenError, Response, UnauthorizedError } from "./common/common"
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+
+export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  const ddbClient = new DynamoDBClient({ region: "ap-southeast-2" })
+  // Extract the body of the POST request
+  const body = event.body ? JSON.parse(event.body) : {}
+
+  if (!body.PROJECT || !body.ID) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Missing 'PROJECT' or 'ID' in the request body" }),
+    }
+  }
+
+  const params: PutCommandInput = {
+    TableName: "Property-Table-2023060171",
+    Item: {
+      PROJECT: { S: body.PROJECT },
+      ID: { N: body.ID.toString() },
+      name: { S: body.name },
+      age: { N: body.age.toString() }
+      // translate other attributes here
+    },
+  }
+
+  // Use the DynamoDB client to put the item
+  const command = new PutCommand(params)
+  const response = await ddbClient.send(command)
+
+  console.log("DynamoDB response: ", response)
+
   return {
     statusCode: 200,
-    headers: { "Content-Type": "text/plain" },
-    body: `Hello, CDK! You've hit ${event.path}\n`,
+    body: JSON.stringify({ message: "Item created successfully" }),
   }
 }
