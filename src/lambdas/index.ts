@@ -4,6 +4,15 @@ import { PutCommand, PutCommandInput } from "@aws-sdk/lib-dynamodb"
 import { BadRequestError, ForbiddenError, Response, UnauthorizedError } from "./common/common"
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
 
+export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  console.log("request:", JSON.stringify(event, undefined, 2))
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "text/plain" },
+    body: `Hello, CDK! You've hit ${event.path}\n`,
+  }
+}
+
 export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const ddbClient = new DynamoDBClient({ region: "ap-southeast-2" })
   // Extract the body of the POST request
@@ -23,7 +32,6 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
       ID: body.ID,
       name: body.name,
       age: body.age,
-      // translate other attributes here
     },
   }
 
