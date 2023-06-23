@@ -5,6 +5,7 @@ import { JsonError } from "./share/validator"
 import { propertyGetAll } from "./property/getPropertyAll"
 import { propertyGetSingle } from "./property/getPropertySingle"
 import { propertyUpdate } from "./property/updateProperty"
+import { propertyDelete } from "./property/deleteProperty"
 
 export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("request:", JSON.stringify(event, undefined, 2))
@@ -40,6 +41,11 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
       }
       case "PUT": {
         const putResponse = await propertyUpdate(event)
+        response = putResponse
+        break
+      }
+      case "DELETE": {
+        const putResponse = await propertyDelete(event)
         response = putResponse
         break
       }
