@@ -10,8 +10,6 @@ export class JsonError extends Error {}
 
 export function validateAsPropertyEntry(arg: any): asserts arg is propertyRequestBody {
   const requiredFields: (keyof propertyRequestBody)[] = [
-    "PROJECT",
-    "ID",
     "address",
     "suburb",
     "postcode",

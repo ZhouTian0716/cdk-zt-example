@@ -21,8 +21,6 @@ export interface POI {
 }
 
 export interface propertyRequestBody {
-  PROJECT: string
-  ID: string
   address: string
   suburb: string
   postcode: string

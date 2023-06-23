@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, ForbiddenError, UnexpectedError } from "./common/common"
 import { propertyPost } from "./property/postProperty"
 import { JsonError } from "./share/validator"
+import { propertyGet } from "./property/getProperty"
 
 export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("request:", JSON.stringify(event, undefined, 2))
@@ -23,6 +24,11 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
       case "POST": {
         const postResponse = await propertyPost(event)
         response = postResponse
+        break
+      }
+      case "GET": {
+        const getResponse = await propertyGet(event)
+        response = getResponse
         break
       }
     }
