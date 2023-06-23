@@ -4,7 +4,7 @@ import * as Lambda from "aws-cdk-lib/aws-lambda"
 import { Tracing } from "aws-cdk-lib/aws-lambda"
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
 import { join } from "path"
-import { Duration, Stack, StackProps } from "aws-cdk-lib"
+import { Duration } from "aws-cdk-lib"
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam"
 
 export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
@@ -48,6 +48,8 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
 
   const createPropertyResource = api.root.addResource("property")
   createPropertyResource.addMethod("POST", new Apigateway.LambdaIntegration(propertyLambda))
+  createPropertyResource.addMethod("GET", new Apigateway.LambdaIntegration(propertyLambda))
+  createPropertyResource.addMethod("PUT", new Apigateway.LambdaIntegration(propertyLambda))
 
   return api
 }
