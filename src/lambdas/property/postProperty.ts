@@ -1,19 +1,10 @@
-import DynamoDB from "./db/db"
+import DynamoDB from "../db/db"
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
-import { BadRequestError, ForbiddenError, Response, UnexpectedError } from "./common/common"
-import { RequestBody } from "./model/propertyModel"
+import { BadRequestError, ForbiddenError, Response, UnexpectedError } from "../common/common"
+import { RequestBody } from "../model/propertyModel"
 
-export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  console.log("request:", JSON.stringify(event, undefined, 2))
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "text/plain" },
-    body: `Hello, CDK! You've hit ${event.path}\n`,
-  }
-}
-
-export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
 
   // Extract the body of the POST request
