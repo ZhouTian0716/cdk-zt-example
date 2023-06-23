@@ -2,7 +2,8 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, ForbiddenError, UnexpectedError } from "./common/common"
 import { propertyPost } from "./property/postProperty"
 import { JsonError } from "./share/validator"
-import { propertyGet } from "./property/getProperty"
+import { propertyGetAll } from "./property/getPropertyAll"
+import { propertyGetSingle } from "./property/getPropertySingle"
 
 export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("request:", JSON.stringify(event, undefined, 2))
@@ -27,20 +28,19 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
         break
       }
       case "GET": {
-        const getResponse = await propertyGet(event)
-        response = getResponse
+        if (event.queryStringParameters && event.queryStringParameters.id) {
+          const getSingleResponse = await propertyGetSingle(event)
+          response = getSingleResponse
+        } else {
+          const getResponse = await propertyGetAll(event)
+          response = getResponse
+        }
         break
       }
     }
   } catch (error) {
-    if (error instanceof BadRequestError) {
+    if (error instanceof BadRequestError || error instanceof JsonError) {
       response = {
-        statusCode: 400,
-        body: error.message,
-      }
-    }
-    if (error instanceof JsonError) {
-      return {
         statusCode: 400,
         body: error.message,
       }

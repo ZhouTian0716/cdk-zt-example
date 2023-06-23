@@ -1,9 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import DynamoDB from "../db/db"
-import { ScanCommand } from "@aws-sdk/lib-dynamodb"
 import { Response } from "../common/common"
 
-export const propertyGet = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const propertyGetAll = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
 
   const params = {
