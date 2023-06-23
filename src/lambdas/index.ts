@@ -4,6 +4,7 @@ import { propertyPost } from "./property/postProperty"
 import { JsonError } from "./share/validator"
 import { propertyGetAll } from "./property/getPropertyAll"
 import { propertyGetSingle } from "./property/getPropertySingle"
+import { propertyUpdate } from "./property/updateProperty"
 
 export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("request:", JSON.stringify(event, undefined, 2))
@@ -28,13 +29,18 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
         break
       }
       case "GET": {
-        if (event.queryStringParameters && event.queryStringParameters.id) {
+        if (event.queryStringParameters && event.queryStringParameters.ID && event.queryStringParameters.PROJECT) {
           const getSingleResponse = await propertyGetSingle(event)
           response = getSingleResponse
         } else {
           const getResponse = await propertyGetAll(event)
           response = getResponse
         }
+        break
+      }
+      case "PUT": {
+        const putResponse = await propertyUpdate(event)
+        response = putResponse
         break
       }
     }

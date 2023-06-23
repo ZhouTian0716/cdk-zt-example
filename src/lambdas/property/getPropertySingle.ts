@@ -6,13 +6,15 @@ export const propertyGetSingle = async (event: APIGatewayProxyEvent): Promise<AP
   const dynamoDB = new DynamoDB()
 
   if (event.queryStringParameters) {
-    if ("ID" in event.queryStringParameters) {
-      const propertyId = event.queryStringParameters["ID"]
+    if ("ID" in event.queryStringParameters && "PROJECT" in event.queryStringParameters) {
+      const propertySK = event.queryStringParameters["ID"]
+      const propertyPK = event.queryStringParameters["PROJECT"]
 
       const params = {
         TableName: "Property-Table-2023060171",
         Key: {
-          id: propertyId,
+          ID: propertySK,
+          PROJECT: propertyPK,
         },
       }
 

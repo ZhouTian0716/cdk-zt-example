@@ -2,12 +2,7 @@ import { v4 as uuidv4 } from "uuid"
 import { propertyRequestBody } from "../model/propertyModel"
 
 export const PropertyItem = (body: propertyRequestBody): any => {
-  const project = "PROJECT"
-  const uuid = uuidv4()
-
   const item = {
-    PROJECT: project,
-    ID: uuid,
     address: body.address,
     suburb: body.suburb,
     postcode: body.postcode,

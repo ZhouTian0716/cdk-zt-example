@@ -5,6 +5,7 @@ import { Response } from "../common/common"
 import { propertyRequestBody } from "../model/propertyModel"
 import { PropertyItem } from "../entity/proprtyEntity"
 import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../share/validator"
+import { v4 as uuidv4 } from "uuid"
 
 export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
@@ -27,10 +28,12 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
   }
 
   const item = PropertyItem(body)
+  const project = "PROJECT"
+  const uuid = uuidv4()
 
   const params: PutCommandInput = {
     TableName: "Property-Table-2023060171",
-    Item: item,
+    Item: { PROJECT: project, ID: uuid, ...item },
   }
 
   try {
