@@ -1,6 +1,45 @@
-export interface RequestBody {
-  PROJECT: string
-  ID: number
+export interface Coordinates {
+  lat: number
+  lng: number
+}
+
+export interface SettlementTime {
+  year: number
+  month: string
+}
+
+export interface File {
+  url: string
+  isCover: boolean
+  isPublic: boolean
+}
+
+export interface POI {
   name: string
-  age: number
+  coordinates: Coordinates
+  address: string
+}
+
+export interface propertyRequestBody {
+  PROJECT: string
+  ID: string
+  address: string
+  suburb: string
+  postcode: string
+  state: string
+  cityCouncil: string
+  yearBuilt: number
+  coordinates: Coordinates
+  agent: string
+  bathrooms: number
+  bedrooms: number
+  carSpaces: number
+  propertyType: string
+  propertyArea: number
+  landPrice: number
+  housePrice: number
+  sourceType: string
+  settlementTime: SettlementTime
+  files: File[]
+  POIs: POI[]
 }

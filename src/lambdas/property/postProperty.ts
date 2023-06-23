@@ -1,27 +1,36 @@
 import DynamoDB from "../db/db"
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
-import { BadRequestError, ForbiddenError, Response, UnexpectedError } from "../common/common"
-import { RequestBody } from "../model/propertyModel"
+import { Response } from "../common/common"
+import { propertyRequestBody } from "../model/propertyModel"
+import { PropertyItem } from "../entity/proprtyEntity"
+import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../share/validator"
 
 export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
+  let body: propertyRequestBody
 
-  // Extract the body of the POST request
-  const body: RequestBody = event.body ? JSON.parse(event.body) : {}
-
-  if (!body.PROJECT || !body.ID) {
-    throw new BadRequestError("Missing 'PROJECT' or 'ID' in the request body")
+  try {
+    body = event.body ? JSON.parse(event.body) : {}
+  } catch (error) {
+    throw new JsonError("Invalid JSON format in the request body.")
   }
+
+  try {
+    validateAsPropertyEntry(body)
+  } catch (error) {
+    if (error instanceof MissingFieldError) {
+      return Response(400, { errorMessage: error.message })
+    } else {
+      throw error
+    }
+  }
+
+  const item = PropertyItem(body)
 
   const params: PutCommandInput = {
     TableName: "Property-Table-2023060171",
-    Item: {
-      PROJECT: body.PROJECT,
-      ID: body.ID,
-      name: body.name,
-      age: body.age,
-    },
+    Item: item,
   }
 
   try {
