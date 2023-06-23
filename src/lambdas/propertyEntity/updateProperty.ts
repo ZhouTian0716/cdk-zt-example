@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import DynamoDB from "../db/db"
 import { Response } from "../common/common"
-import { PropertyItem } from "../entity/proprtyEntity"
+import { PropertyItem } from "../share/proprtyItem"
 
 export const propertyUpdate = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()

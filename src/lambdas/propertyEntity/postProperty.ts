@@ -3,7 +3,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
 import { Response } from "../common/common"
 import { propertyRequestBody } from "../model/propertyModel"
-import { PropertyItem } from "../entity/proprtyEntity"
+import { PropertyItem } from "../share/proprtyItem"
 import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../share/validator"
 import { v4 as uuidv4 } from "uuid"
 

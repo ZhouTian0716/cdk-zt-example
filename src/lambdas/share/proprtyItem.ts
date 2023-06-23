@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid"
 import { propertyRequestBody } from "../model/propertyModel"
 
 export const PropertyItem = (body: propertyRequestBody): any => {

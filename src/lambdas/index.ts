@@ -1,11 +1,11 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, ForbiddenError, UnexpectedError } from "./common/common"
-import { propertyPost } from "./property/postProperty"
+import { propertyPost } from "./propertyEntity/postProperty"
 import { JsonError } from "./share/validator"
-import { propertyGetAll } from "./property/getPropertyAll"
-import { propertyGetSingle } from "./property/getPropertySingle"
-import { propertyUpdate } from "./property/updateProperty"
-import { propertyDelete } from "./property/deleteProperty"
+import { propertyGetAll } from "./propertyEntity/getPropertyAll"
+import { propertyGetSingle } from "./propertyEntity/getPropertySingle"
+import { propertyUpdate } from "./propertyEntity/updateProperty"
+import { propertyDelete } from "./propertyEntity/deleteProperty"
 
 export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("request:", JSON.stringify(event, undefined, 2))
