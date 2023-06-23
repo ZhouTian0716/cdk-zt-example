@@ -47,9 +47,10 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
   helloLambdaResource.addMethod("GET", new Apigateway.LambdaIntegration(helloLambda))
 
   const createPropertyResource = api.root.addResource("property")
-  createPropertyResource.addMethod("POST", new Apigateway.LambdaIntegration(propertyLambda))
-  createPropertyResource.addMethod("GET", new Apigateway.LambdaIntegration(propertyLambda))
-  createPropertyResource.addMethod("PUT", new Apigateway.LambdaIntegration(propertyLambda))
+  const methods = ["POST", "GET", "PUT", "DELETE"]
 
+  for (const method of methods) {
+    createPropertyResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
+  }
   return api
 }
