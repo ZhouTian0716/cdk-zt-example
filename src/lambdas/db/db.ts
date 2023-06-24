@@ -1,16 +1,16 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
 import {
-  DynamoDBDocumentClient,
-  ScanCommand,
-  PutCommand,
-  GetCommand,
   DeleteCommand,
-  QueryCommand,
-  ScanCommandInput,
-  GetCommandInput,
-  PutCommandInput,
   DeleteCommandInput,
+  DynamoDBDocumentClient,
+  GetCommand,
+  GetCommandInput,
+  PutCommand,
+  PutCommandInput,
+  QueryCommand,
   QueryCommandInput,
+  ScanCommand,
+  ScanCommandInput,
 } from "@aws-sdk/lib-dynamodb"
 import { logger } from "../../../Shared/Utils/logger"
 
