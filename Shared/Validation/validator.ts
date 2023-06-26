@@ -1,15 +1,77 @@
-import { File, POI, propertyRequestBody } from "../Interface/property"
+import { Validator } from "jsonschema"
 
-export class MissingFieldError extends Error {
-  constructor(missingField: string) {
-    super(`Value for ${missingField} expected!`)
-  }
-}
+const v = new Validator()
 
 export class JsonError extends Error {}
 
-export function validateAsPropertyEntry(arg: any): asserts arg is propertyRequestBody {
-  const requiredFields: (keyof propertyRequestBody)[] = [
+export const propertySchema = {
+  id: "/Property",
+  type: "object",
+  properties: {
+    address: { type: "string" },
+    suburb: { type: "string" },
+    postcode: { type: "string" },
+    state: { type: "string" },
+    cityCouncil: { type: "string" },
+    yearBuilt: { type: "number" },
+    coordinates: {
+      type: "object",
+      properties: {
+        lat: { type: "number" },
+        lng: { type: "number" },
+      },
+      required: ["lat", "lng"],
+    },
+    agent: { type: "string" },
+    bathrooms: { type: "number" },
+    bedrooms: { type: "number" },
+    carSpaces: { type: "number" },
+    propertyType: { type: "string" },
+    propertyArea: { type: "number" },
+    landPrice: { type: "number" },
+    housePrice: { type: "number" },
+    sourceType: { type: "string" },
+    settlementTime: {
+      type: "object",
+      properties: {
+        year: { type: "number" },
+        month: { type: "string" },
+      },
+      required: ["year", "month"],
+    },
+    files: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          url: { type: "string" },
+          isCover: { type: "boolean" },
+          isPublic: { type: "boolean" },
+        },
+        required: ["url", "isCover", "isPublic"],
+      },
+    },
+    POIs: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          coordinates: {
+            type: "object",
+            properties: {
+              lat: { type: "number" },
+              lng: { type: "number" },
+            },
+            required: ["lat", "lng"],
+          },
+          address: { type: "string" },
+        },
+        required: ["name", "coordinates", "address"],
+      },
+    },
+  },
+  required: [
     "address",
     "suburb",
     "postcode",
@@ -29,30 +91,7 @@ export function validateAsPropertyEntry(arg: any): asserts arg is propertyReques
     "settlementTime",
     "files",
     "POIs",
-  ]
-
-  for (const field of requiredFields) {
-    if ((arg as propertyRequestBody)[field] == undefined) {
-      throw new MissingFieldError(field)
-    }
-  }
-
-  if (!("lat" in arg.coordinates && "lng" in arg.coordinates)) {
-    throw new MissingFieldError("coordinates")
-  }
-
-  if (!("year" in arg.settlementTime && "month" in arg.settlementTime)) {
-    throw new MissingFieldError("settlementTime")
-  }
-
-  if (!Array.isArray(arg.files) || arg.files.some((file: File) => file.url == undefined || file.isCover == undefined || file.isPublic == undefined)) {
-    throw new MissingFieldError("files")
-  }
-
-  if (
-    !Array.isArray(arg.POIs) ||
-    arg.POIs.some((poi: POI) => poi.name == undefined || !("lat" in poi.coordinates && "lng" in poi.coordinates) || poi.address == undefined)
-  ) {
-    throw new MissingFieldError("POIs")
-  }
+  ],
 }
+
+v.addSchema(propertySchema, "/Property")
