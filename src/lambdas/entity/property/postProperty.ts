@@ -1,10 +1,10 @@
-import DynamoDB from "../db/db"
+import DynamoDB from "../../db/db"
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
-import { Response } from "../common/common"
-import { propertyRequestBody } from "../model/propertyModel"
-import { PropertyItem } from "../share/proprtyItem"
-import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../share/validator"
+import { Response } from "../../common/common"
+import { propertyRequestBody } from "../../../../Shared/Interface/property"
+import { PropertyBodyItem } from "../../../../Shared/validation/propertyBodyItem"
+import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../../../../Shared/validation/validator"
 import { v4 as uuidv4 } from "uuid"
 
 export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -27,13 +27,13 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
     }
   }
 
-  const item = PropertyItem(body)
+  const bodyItem = PropertyBodyItem(body)
   const project = "PROJECT"
   const uuid = uuidv4()
 
   const params: PutCommandInput = {
     TableName: "Property-Table-2023060171",
-    Item: { PROJECT: project, ID: uuid, ...item },
+    Item: { PROJECT: project, ID: uuid, ...bodyItem },
   }
 
   try {

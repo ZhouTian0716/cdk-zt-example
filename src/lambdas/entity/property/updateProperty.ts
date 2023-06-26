@@ -1,26 +1,26 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
-import DynamoDB from "../db/db"
-import { Response } from "../common/common"
-import { PropertyItem } from "../share/proprtyItem"
+import DynamoDB from "../../db/db"
+import { Response } from "../../common/common"
+import { PropertyBodyItem } from "../../../../Shared/validation/propertyBodyItem"
 
 export const propertyUpdate = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
 
-  if (event.queryStringParameters && event.body) {
-    if ("ID" in event.queryStringParameters && "PROJECT" in event.queryStringParameters) {
-      const propertySK = event.queryStringParameters["ID"]
-      const propertyPK = event.queryStringParameters["PROJECT"]
+  if (event.pathParameters && event.body) {
+    if (event.pathParameters && "ID" in event.pathParameters) {
+      const propertySK = event.pathParameters["ID"]
+      const propertyPK = "PROJECT"
 
       const updatedData = JSON.parse(event.body)
 
-      const item = PropertyItem(updatedData)
+      const bodyItem = PropertyBodyItem(updatedData)
 
       const params = {
         TableName: "Property-Table-2023060171",
         Item: {
           ID: propertySK,
           PROJECT: propertyPK,
-          ...item,
+          ...bodyItem,
         },
       }
 

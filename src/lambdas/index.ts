@@ -1,11 +1,11 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, ForbiddenError, UnexpectedError } from "./common/common"
-import { propertyPost } from "./propertyEntity/postProperty"
-import { JsonError } from "./share/validator"
-import { propertyGetAll } from "./propertyEntity/getPropertyAll"
-import { propertyGetSingle } from "./propertyEntity/getPropertySingle"
-import { propertyUpdate } from "./propertyEntity/updateProperty"
-import { propertyDelete } from "./propertyEntity/deleteProperty"
+import { propertyPost } from "./entity/property/postProperty"
+import { JsonError } from "../../Shared/validation/validator"
+import { propertyGetAll } from "./entity/property/getPropertyAll"
+import { propertyGetSingle } from "./entity/property/getPropertySingle"
+import { propertyUpdate } from "./entity/property/updateProperty"
+import { propertyDelete } from "./entity/property/deleteProperty"
 
 export const helloHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("request:", JSON.stringify(event, undefined, 2))
@@ -30,7 +30,7 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
         break
       }
       case "GET": {
-        if (event.queryStringParameters && event.queryStringParameters.ID && event.queryStringParameters.PROJECT) {
+        if (event.pathParameters && event.pathParameters.ID) {
           const getSingleResponse = await propertyGetSingle(event)
           response = getSingleResponse
         } else {
@@ -45,8 +45,8 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
         break
       }
       case "DELETE": {
-        const putResponse = await propertyDelete(event)
-        response = putResponse
+        const deleteResponse = await propertyDelete(event)
+        response = deleteResponse
         break
       }
     }
