@@ -1,24 +1,43 @@
-export enum PROPERTY_TYPE {
-  HOUSE = "house",
-  APARTMENT = "apartment",
-  UNIT = "unit",
-  TOWNHOUSE = "townhouse",
+export interface Coordinates {
+  lat: number
+  lng: number
 }
 
-export interface Address {
-  street?: string
-  suburb?: string
-  state?: "NSW" | "QLD" | "VIC" | "WA" | "SA" | "TAS" | "ACT" | "NT"
+export interface SettlementTime {
+  year: number
+  month: string
 }
 
-export interface Property {
-  id: string
-  Name: string // Property suburb name, do we need this? as we can get this from Address -> suburb
-  address: Address
-  type: PROPERTY_TYPE
-  date?: Date // Purchase date
-  seller?: string
-  solicitor?: string
-  firb?: boolean // do we need this?
-  status?: string // own, rent, sold
+export interface File {
+  url: string
+  isCover: boolean
+  isPublic: boolean
+}
+
+export interface POI {
+  name: string
+  coordinates: Coordinates
+  address: string
+}
+
+export interface propertyRequestBody {
+  address: string
+  suburb: string
+  postcode: string
+  state: string
+  cityCouncil: string
+  yearBuilt: number
+  coordinates: Coordinates
+  agent: string
+  bathrooms: number
+  bedrooms: number
+  carSpaces: number
+  propertyType: string
+  propertyArea: number
+  landPrice: number
+  housePrice: number
+  sourceType: string
+  settlementTime: SettlementTime
+  files: File[]
+  POIs: POI[]
 }

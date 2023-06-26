@@ -1,24 +1,30 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import DynamoDB from "../../db/db"
-import { Response } from "../../common/common"
+import { BadRequestError, HttpError, Response, UnexpectedError } from "../../common/common"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const propertyGetAll = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const propertyGetAll = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
 
-  const params = {
-    TableName: "Property-Table-2023060171",
-  }
-
   try {
+    const params = {
+      TableName: process.env.TABLE_NAME,
+    }
+
     const dbResponse = await dynamoDB.dbScan(params)
 
-    if (dbResponse.statusCode === 200) {
-      return Response(200, dbResponse.data)
-    } else {
-      return Response(dbResponse.statusCode, { errorMessage: dbResponse.errorMessage })
+    if (dbResponse.statusCode !== 200) {
+      throw new BadRequestError(dbResponse.errorMessage)
     }
+
+    return Response(200, dbResponse.data)
   } catch (error) {
-    return Response(500, { errorMessage: "An error occurred while processing your request." })
+    if (error instanceof HttpError) {
+      return error.response()
+    } else {
+      console.error(error)
+      const unexpectedError = new UnexpectedError("An error occurred while processing your request.")
+      return unexpectedError.response()
+    }
   }
 }

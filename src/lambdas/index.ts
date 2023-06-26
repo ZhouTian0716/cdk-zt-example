@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, ForbiddenError, UnexpectedError } from "./common/common"
 import { propertyPost } from "./entity/property/postProperty"
-import { JsonError } from "../../Shared/validation/validator"
+import { JsonError } from "../../Shared/Validation/validator"
 import { propertyGetAll } from "./entity/property/getPropertyAll"
 import { propertyGetSingle } from "./entity/property/getPropertySingle"
 import { propertyUpdate } from "./entity/property/updateProperty"

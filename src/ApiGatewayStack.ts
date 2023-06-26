@@ -7,7 +7,7 @@ import { join } from "path"
 import { Duration } from "aws-cdk-lib"
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam"
 
-export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
+export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, filesDbName: string, propertyDbArn: string): Apigateway.RestApi {
   // defines an AWS Lambda resource
 
   const helloLambda = new NodejsFunction(stack, "HelloLambda", {
@@ -23,7 +23,7 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
     handler: "propertyHandler",
     entry: join(__dirname, "/lambdas/index.js"),
     environment: {
-      TABLE_NAME: "Property-Table-2023060171",
+      TABLE_NAME: propertyTable,
     },
     tracing: Tracing.ACTIVE,
     timeout: Duration.minutes(1),
@@ -32,13 +32,13 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
   propertyLambda.addToRolePolicy(
     new PolicyStatement({
       effect: Effect.ALLOW,
-      resources: ["arn:aws:dynamodb:ap-southeast-2:117089941413:table/Property-Table-2023060171"],
+      resources: [propertyDbArn],
       actions: ["dynamodb:PutItem", "dynamodb:Scan", "dynamodb:GetItem", "dynamodb:UpdateItem", "dynamodb:DeleteItem"],
     })
   )
 
   // defines an API Gateway REST API resource
-  const api = new Apigateway.RestApi(stack, "HelloApi", {
+  const api = new Apigateway.RestApi(stack, "PropertyApi", {
     restApiName: "Hello Service",
   })
 
@@ -46,11 +46,18 @@ export function createApiGatewayStack(stack: Cdk.Stack): Apigateway.RestApi {
   const helloLambdaResource = api.root.addResource("hello")
   helloLambdaResource.addMethod("GET", new Apigateway.LambdaIntegration(helloLambda))
 
-  const createPropertyResource = api.root.addResource("property")
+  //define the /property and /property/{ID} resource
+  const PropertyResource = api.root.addResource("property")
+  const propertyIdResource = PropertyResource.addResource("{ID}")
   const methods = ["POST", "GET", "PUT", "DELETE"]
 
   for (const method of methods) {
-    createPropertyResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
+    PropertyResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
   }
+
+  for (const method of methods) {
+    propertyIdResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
+  }
+
   return api
 }

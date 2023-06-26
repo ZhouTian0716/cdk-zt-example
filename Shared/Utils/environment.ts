@@ -1,7 +1,6 @@
 import { IConfig } from "../../src/config"
 import { LogLevel } from "./logger"
 
-
 /** The App environment */
 export type Environment = "dev" | "prod"
 

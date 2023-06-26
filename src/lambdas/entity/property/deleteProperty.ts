@@ -1,6 +1,6 @@
-import { APIGatewayProxyEvent, APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda"
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import DynamoDB from "../../db/db"
-import { Response } from "../../common/common"
+import { BadRequestError, HttpError, Response, UnexpectedError } from "../../common/common"
 
 export const propertyDelete = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dynamoDB = new DynamoDB()
@@ -10,7 +10,7 @@ export const propertyDelete = async (event: APIGatewayProxyEvent): Promise<APIGa
     const propertyPK = "PROJECT"
 
     const params = {
-      TableName: "Property-Table-2023060171",
+      TableName: process.env.TABLE_NAME,
       Key: {
         ID: propertySK,
         PROJECT: propertyPK,
@@ -20,15 +20,22 @@ export const propertyDelete = async (event: APIGatewayProxyEvent): Promise<APIGa
     try {
       const dbResponse = await dynamoDB.dbDelete(params)
 
-      if (dbResponse.statusCode === 200) {
-        return Response(200, { message: "Item delete successfully" })
-      } else {
-        return Response(dbResponse.statusCode, { errorMessage: dbResponse.errorMessage })
+      if (dbResponse.statusCode !== 200) {
+        throw new BadRequestError(dbResponse.errorMessage)
       }
+
+      return Response(200, { message: "Item deleted successfully" })
     } catch (error) {
-      return Response(500, { errorMessage: "An error occurred while processing your request." })
+      if (error instanceof HttpError) {
+        return error.response()
+      } else {
+        console.error(error)
+        const unexpectedError = new UnexpectedError("An error occurred while processing your request.")
+        return unexpectedError.response()
+      }
     }
   } else {
-    return Response(400, { errorMessage: "ID is required in queryStringParameters" })
+    const badRequestError = new BadRequestError("ID is required in pathParameters")
+    return badRequestError.response()
   }
 }

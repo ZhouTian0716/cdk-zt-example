@@ -1,10 +1,10 @@
 import DynamoDB from "../../db/db"
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
-import { Response } from "../../common/common"
+import { BadRequestError, HttpError, Response, UnexpectedError } from "../../common/common"
 import { propertyRequestBody } from "../../../../Shared/Interface/property"
-import { PropertyBodyItem } from "../../../../Shared/validation/propertyBodyItem"
-import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../../../../Shared/validation/validator"
+import { PropertyBodyItem } from "../../../../Shared/Validation/propertyBodyItem"
+import { JsonError, MissingFieldError, validateAsPropertyEntry } from "../../../../Shared/Validation/validator"
 import { v4 as uuidv4 } from "uuid"
 
 export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -21,7 +21,7 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
     validateAsPropertyEntry(body)
   } catch (error) {
     if (error instanceof MissingFieldError) {
-      return Response(400, { errorMessage: error.message })
+      throw new BadRequestError("Invalid JSON format in the request body.")
     } else {
       throw error
     }
@@ -32,7 +32,7 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
   const uuid = uuidv4()
 
   const params: PutCommandInput = {
-    TableName: "Property-Table-2023060171",
+    TableName: process.env.TABLE_NAME,
     Item: { PROJECT: project, ID: uuid, ...bodyItem },
   }
 
@@ -40,11 +40,17 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
     const dbResponse = await dynamoDB.dbPut(params)
 
     if (dbResponse.statusCode === 200) {
-      return Response(200, { message: "Item created successfully" })
+      return Response(201, { message: "Item created successfully" })
     } else {
-      return Response(dbResponse.statusCode, { errorMessage: dbResponse.errorMessage })
+      throw new BadRequestError(dbResponse.errorMessage)
     }
   } catch (error) {
-    return Response(500, { errorMessage: "An error occurred while processing your request." })
+    if (error instanceof HttpError) {
+      return error.response()
+    } else {
+      console.error(error)
+      const unexpectedError = new UnexpectedError("An error occurred while processing your request.")
+      return unexpectedError.response()
+    }
   }
 }

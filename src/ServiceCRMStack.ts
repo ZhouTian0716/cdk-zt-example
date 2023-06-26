@@ -20,12 +20,13 @@ export class ServiceCRMStack extends Cdk.Stack {
     const certificateArn = config.CERTIFICATE_ARN
     const apiDomainName = config.API_CUSTOM_DOMAIN
     const filesTable = config.FILE_DDB_TABLE_NAME
+    const propertyDbArn = config.PROPERTY_DB_ARN
 
     // const arn = process.env.CRM_DYNAMODB_ARN
     //const db = Dynamodb.Table.fromTableArn(this, "CRM_Table", arn ? arn : config.dynamodb_arn)
     // TODO: add your code
     // ...
-    const api = createApiGatewayStack(this)
+    const api = createApiGatewayStack(this, propertyTable, filesTable, propertyDbArn)
 
     // create ddb
     createDynamoDB(this, propertyTable, filesTable)
