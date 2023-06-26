@@ -47,15 +47,16 @@ export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, f
   helloLambdaResource.addMethod("GET", new Apigateway.LambdaIntegration(helloLambda))
 
   //define the /property and /property/{ID} resource
-  const PropertyResource = api.root.addResource("property")
-  const propertyIdResource = PropertyResource.addResource("{ID}")
-  const methods = ["POST", "GET", "PUT", "DELETE"]
+  const propertyResource = api.root.addResource("property")
+  const propertyIdResource = propertyResource.addResource("{ID}")
+  const propertyResourceMethods = ["POST", "GET"]
+  const propertyIdResourceMethods = ["GET", "PUT", "DELETE"]
 
-  for (const method of methods) {
-    PropertyResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
+  for (const method of propertyResourceMethods) {
+    propertyResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
   }
 
-  for (const method of methods) {
+  for (const method of propertyIdResourceMethods) {
     propertyIdResource.addMethod(method, new Apigateway.LambdaIntegration(propertyLambda))
   }
 
