@@ -25,7 +25,7 @@ housePrice:Number - The house price of the property
 POI: MapList - record name(string), coordinates(Map), address(string) in each POI
 sourceType: String - Property service type(Established, new, off the plan)
 settlementTime: Map (year(number), month(string)) - if off the plan, must have
-files: Map  - FilesId (NumberList)， isCoverPage(boolean), isPublic(boolean), tags: stringList
+files: Map  - FilesId (NumberList)
 
 
 Table name: FILES
@@ -39,3 +39,5 @@ url: String - the path of image stored in s3 bucket
 tags: stringList
 createdBy: string - username who create the item
 createAt: string - create time
+isCoverPage: boolean
+isPublic: boolean
