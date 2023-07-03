@@ -42,13 +42,7 @@ export const propertySchema = {
     files: {
       type: "array",
       items: {
-        type: "object",
-        properties: {
-          url: { type: "string" },
-          isCover: { type: "boolean" },
-          isPublic: { type: "boolean" },
-        },
-        required: ["url", "isCover", "isPublic"],
+        type: "string",
       },
     },
     POIs: {
@@ -71,27 +65,7 @@ export const propertySchema = {
       },
     },
   },
-  required: [
-    "address",
-    "suburb",
-    "postcode",
-    "state",
-    "cityCouncil",
-    "yearBuilt",
-    "coordinates",
-    "agent",
-    "bathrooms",
-    "bedrooms",
-    "carSpaces",
-    "propertyType",
-    "propertyArea",
-    "landPrice",
-    "housePrice",
-    "sourceType",
-    "settlementTime",
-    "files",
-    "POIs",
-  ],
+  required: ["address", "suburb", "postcode", "state", "cityCouncil", "yearBuilt", "bathrooms", "bedrooms", "carSpaces", "housePrice", "files"],
 }
 
 v.addSchema(propertySchema, "/Property")

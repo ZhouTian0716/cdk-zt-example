@@ -3,21 +3,10 @@ export interface Coordinates {
   lng: number
 }
 
-export interface SettlementTime {
-  year: number
-  month: string
-}
-
-export interface File {
-  url: string
-  isCover: boolean
-  isPublic: boolean
-}
-
 export interface POI {
-  name: string
-  coordinates: Coordinates
-  address: string
+  name?: string
+  coordinates?: Coordinates
+  address?: string
 }
 
 export interface propertyRequestBody {
@@ -37,7 +26,7 @@ export interface propertyRequestBody {
   landPrice: number
   housePrice: number
   sourceType: string
-  settlementTime: SettlementTime
-  files: File[]
-  POIs: POI[]
+  settlementTime?: string
+  files: string[]
+  POIs?: POI[]
 }
