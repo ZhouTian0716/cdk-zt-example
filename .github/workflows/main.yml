@@ -5,14 +5,10 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: node:16
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
 
     - name: Install dependencies
       run: npm ci
@@ -21,17 +17,13 @@ jobs:
     if: github.ref == 'refs/heads/Feature/Lambda-Function-project-#32-olivia2'
     needs: build
     runs-on: ubuntu-latest
+    container: node:16
     env:
       CRM_ENV: olivia
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
 
     - name: Install dependencies
       run: npm ci
