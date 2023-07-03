@@ -29,7 +29,8 @@ jobs:
       run: npm ci
     
     - name: Transpile TypeScript
-      run: sudo npx tsc ./src/lambdas/index.ts
+      run: npx tsc ./src/lambdas/index.ts
+      working-directory: ./  
 
     - name: Set up AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
