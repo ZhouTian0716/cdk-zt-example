@@ -31,7 +31,7 @@ export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, f
 
   // defines an API Gateway REST API resource
   const api = new Apigateway.RestApi(stack, "PropertyApi", {
-    restApiName: "Hello Service",
+    restApiName: "Property Service",
   })
 
   //define the /property and /property/{ID} resource
