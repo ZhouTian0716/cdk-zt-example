@@ -29,7 +29,7 @@ jobs:
       run: npm ci
     
     - name: Check permissions
-       run: ls -la /__w/JR.RealEstate.Backend/JR.RealEstate.Backend
+      run: ls -la /__w/JR.RealEstate.Backend/JR.RealEstate.Backend
     
     - name: Transpile TypeScript
       run: npx tsc ./src/lambdas/index.ts
