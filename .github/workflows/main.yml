@@ -18,11 +18,11 @@ jobs:
       run: npm ci
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/Feature/lambda-function-project-#32-olivia2 '
     needs: build
     runs-on: ubuntu-latest
     env:
-      CRM_ENV: prod
+      CRM_ENV: olivia
 
     steps:
     - name: Checkout code
