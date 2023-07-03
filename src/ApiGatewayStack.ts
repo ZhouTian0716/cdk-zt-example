@@ -7,7 +7,7 @@ import { join } from "path"
 import { Duration } from "aws-cdk-lib"
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam"
 
-export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, filesDbName: string, propertyDbArn: string): Apigateway.RestApi {
+export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, filesTable: string, propertyDbArn: string): Apigateway.RestApi {
   // defines an AWS Lambda resource
 
   const propertyLambda = new NodejsFunction(stack, "PropertyLambda", {
@@ -25,7 +25,7 @@ export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, f
     new PolicyStatement({
       effect: Effect.ALLOW,
       resources: [propertyDbArn],
-      actions: ["dynamodb: *"],
+      actions: ["dynamodb:*"],
     })
   )
 
