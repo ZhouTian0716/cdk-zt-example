@@ -1,8 +1,37 @@
-exports.handler = async function (event: any) {
-  console.log("request:", JSON.stringify(event, undefined, 2))
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "text/plain" },
-    body: `Hello, CDK! You've hit ${event.path}\n`,
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
+import { BadRequestError, HttpError, UnexpectedError } from "./common/common"
+import { propertyDelete, propertyGetAll, propertyGetSingle, propertyPost, propertyUpdate } from "./entity/property"
+
+export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    switch (event.httpMethod) {
+      case "POST": {
+        return await propertyPost(event)
+      }
+      case "GET": {
+        if (event.pathParameters && event.pathParameters.ID) {
+          return await propertyGetSingle(event)
+        } else {
+          return await propertyGetAll(event)
+        }
+      }
+      case "PUT": {
+        return await propertyUpdate(event)
+      }
+      case "DELETE": {
+        return await propertyDelete(event)
+      }
+      default: {
+        throw new BadRequestError(`Unsupported method "${event.httpMethod}"`)
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    if (error instanceof HttpError) {
+      return error.response()
+    } else {
+      const unexpectedError = new UnexpectedError("An error occurred while processing your request.")
+      return unexpectedError.response()
+    }
   }
 }
