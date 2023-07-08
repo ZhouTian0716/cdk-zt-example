@@ -15,4 +15,5 @@ export interface IConfig {
   readonly stackID: string
   readonly certificateArn: string
   readonly apiDomainName: string
+  readonly propertyDbArn: string
 }

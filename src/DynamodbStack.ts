@@ -6,7 +6,7 @@ export function createDynamoDB(stack: Cdk.Stack, propertyDbName: string, filesDb
   const propertyTable: Dynamodb.Table = new Dynamodb.Table(stack, "Properties-Table", {
     tableName: propertyDbName,
     partitionKey: { name: "PROJECT", type: Dynamodb.AttributeType.STRING },
-    sortKey: { name: "ID", type: Dynamodb.AttributeType.NUMBER },
+    sortKey: { name: "ID", type: Dynamodb.AttributeType.STRING },
     removalPolicy: Cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
     stream: Dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
     billingMode: Dynamodb.BillingMode.PAY_PER_REQUEST,
@@ -15,7 +15,7 @@ export function createDynamoDB(stack: Cdk.Stack, propertyDbName: string, filesDb
   const filesTable: Dynamodb.Table = new Dynamodb.Table(stack, "Files-Table", {
     tableName: filesDbName,
     partitionKey: { name: "FILE", type: Dynamodb.AttributeType.STRING },
-    sortKey: { name: "ID", type: Dynamodb.AttributeType.NUMBER },
+    sortKey: { name: "ID", type: Dynamodb.AttributeType.STRING },
     removalPolicy: Cdk.RemovalPolicy.DESTROY, // Only use destroy this in testing
     stream: Dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
     billingMode: Dynamodb.BillingMode.PAY_PER_REQUEST,
