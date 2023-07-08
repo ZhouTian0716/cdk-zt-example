@@ -1,9 +1,0 @@
-{
-  "collectCoverageFrom": ["src/common/**/*.ts*", "src/lambdas/**/*.ts*"],
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-  "testEnvironment": "node",
-  "testRegex": "/(src|test)/.*\\.(test).(ts|tsx)$",
-  "transform": {
-    "^.+\\.ts?$": "ts-jest"
-  }
-}

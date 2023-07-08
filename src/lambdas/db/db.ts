@@ -32,6 +32,7 @@ export default class DynamoDB {
     try {
       const response = await dynamo.send(new PutCommand(props))
       logger.info("[DB] dbPut: " + JSON.stringify(response))
+      console.log(response.$metadata.httpStatusCode + "checkcheckcheck///")
       return {
         statusCode: response.$metadata.httpStatusCode || 200,
       }
