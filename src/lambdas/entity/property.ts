@@ -162,6 +162,7 @@ export const propertySearch = async (event: APIGatewayProxyEvent): Promise<APIGa
   const filter = []
   filter.push("contains(#address, :address)")
   filter.push("contains(#suburb, :suburb)")
+  filter.push("contains(#description, :description)")
   filter.push("contains(#postcode, :postcode)")
   filter.push("contains(#agent, :agent)")
 
@@ -171,6 +172,7 @@ export const propertySearch = async (event: APIGatewayProxyEvent): Promise<APIGa
     FilterExpression: filter.join(" OR "),
     ExpressionAttributeNames: {
       "#pk": "PROJECT",
+      "#description": "description",
       "#address": "address",
       "#suburb": "suburb",
       "#postcode": "postcode",
@@ -179,6 +181,7 @@ export const propertySearch = async (event: APIGatewayProxyEvent): Promise<APIGa
     ExpressionAttributeValues: {
       ":pk": PROPERTY_PK,
       ":address": keyword,
+      ":description": keyword,
       ":suburb": keyword,
       ":postcode": keyword,
       ":agent": keyword,
