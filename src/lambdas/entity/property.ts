@@ -3,9 +3,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
 import { BadRequestError, Response, UnexpectedError } from "../common/common"
 import { propertyRequestBody } from "../../../Shared/Interface/property"
-import { JsonError } from "../../../Shared/validation/validator"
+import { JsonError } from "../../../Shared/Validation/validator"
 import { v4 as uuidv4 } from "uuid"
-import { propertySchema } from "../../../Shared/validation/validator"
+import { propertySchema } from "../../../Shared/Validation/validator"
 import { Validator } from "jsonschema"
 
 const dynamoDB = new DynamoDB()
