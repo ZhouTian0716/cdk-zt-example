@@ -28,7 +28,7 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
   }
 
   const item = body
-  const project = "PROJECT"
+  const project = PROPERTY_PK
   const uuid = uuidv4()
 
   const params: PutCommandInput = {
@@ -65,7 +65,7 @@ export const propertyGetSingle = async (event: APIGatewayProxyEvent): Promise<AP
   }
 
   const propertySK = event.pathParameters["ID"]
-  const propertyPK = "PROJECT"
+  const propertyPK = PROPERTY_PK
 
   const params = {
     TableName: process.env.TABLE_NAME,
@@ -90,7 +90,7 @@ export const propertyDelete = async (event: APIGatewayProxyEvent): Promise<APIGa
   }
 
   const propertySK = event.pathParameters["ID"]
-  const propertyPK = "PROJECT"
+  const propertyPK = PROPERTY_PK
 
   const params = {
     TableName: process.env.TABLE_NAME,
@@ -115,7 +115,7 @@ export const propertyUpdate = async (event: APIGatewayProxyEvent): Promise<APIGa
   }
 
   const propertySK = event.pathParameters["ID"]
-  const propertyPK = "PROJECT"
+  const propertyPK = PROPERTY_PK
 
   let updatedData: propertyRequestBody
   try {
