@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, HttpError, UnexpectedError } from "./common/common"
 import { propertyDelete, propertyGetAll, propertyGetSingle, propertyPost, propertyUpdate } from "./entity/property"
-import { propertySearch } from "./entity/searchProperty"
+import { propertySearch } from "./entity/property"
 
 export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
