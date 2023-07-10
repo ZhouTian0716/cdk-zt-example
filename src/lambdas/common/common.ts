@@ -1,6 +1,6 @@
 import { logger } from "../../../Shared/Utils/logger"
 
-const allowOrigins = ["https://crm.cyberlark.com.au", "http://localhost:5173", "https://jr.cyberlark.com.au", "https://www.jr.cyberlark.com.au"]
+const allowOrigins = "https://crm.cyberlark.com.au"
 const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent",
   "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
