@@ -3,9 +3,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb"
 import { BadRequestError, Response, UnexpectedError } from "../common/common"
 import { propertyRequestBody } from "../../../Shared/Interface/property"
-import { JsonError } from "../../../Shared/validation/validator"
+import { JsonError } from "../../../Shared/Validation/validator"
 import { v4 as uuidv4 } from "uuid"
-import { propertySchema } from "../../../Shared/validation/validator"
+import { propertySchema } from "../../../Shared/Validation/validator"
 import { Validator } from "jsonschema"
 
 const dynamoDB = new DynamoDB()
@@ -33,11 +33,13 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
     TableName: process.env.TABLE_NAME,
     Item: { PROJECT: project, ID: uuid, ...item },
   }
+  console.log(params)
 
   const dbResponse = await dynamoDB.dbPut(params)
 
   if (dbResponse.statusCode === 200) {
-    return Response(201, { message: "Item created successfully" })
+    console.log(dbResponse)
+    return Response(201, { message: "Item created successfully", properties: { item: [params.Item] } }) // for knowing the item added information
   } else {
     throw new BadRequestError(dbResponse.errorMessage)
   }

@@ -1,3 +1,4 @@
+import { APIGatewayEventRequestContext } from "aws-lambda"
 import { logger } from "../../../Shared/Utils/logger"
 
 const allowOrigins = "https://crm.cyberlark.com.au"
@@ -82,4 +83,19 @@ export interface LambdaEvent {
   test?: {
     tableName: string
   }
+}
+
+export interface APIGatewayProxyEvent {
+  body: string | null
+  headers: { [name: string]: string }
+  multiValueHeaders: { [name: string]: string[] }
+  httpMethod: string
+  isBase64Encoded: boolean
+  path: string
+  pathParameters: { [name: string]: string } | null
+  queryStringParameters: { [name: string]: string } | null
+  multiValueQueryStringParameters: { [name: string]: string[] } | null
+  stageVariables: { [name: string]: string } | null
+  requestContext: APIGatewayEventRequestContext
+  resource: string
 }

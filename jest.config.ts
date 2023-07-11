@@ -1,9 +1,22 @@
 import { Config } from "@jest/types"
+import path from "path"
 
-const baseTestDir = "<rootDir>/src/lambdas/*/__test__"
+process.env.JEST_DYNAMODB_CONFIG = path.resolve(__dirname, "./jest-dynamodb-config")
+
+const baseTestDir = "<rootDir>/src/lambdas/test/main_test"
+
 const config: Config.InitialOptions = {
-  preset: "ts-jest",
   testEnvironment: "node",
   testMatch: [`${baseTestDir}/**/*.test.ts`],
+  collectCoverageFrom: ["src/common/**/*.ts*", "src/lambdas/**/*.ts*"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  transform: {
+    "^.+\\.ts?$": "ts-jest",
+  },
+}
+
+module.exports = {
+  ...config,
+  preset: "@shelf/jest-dynamodb",
 }
 export default config

@@ -14,8 +14,21 @@ import {
 } from "@aws-sdk/lib-dynamodb"
 import { logger } from "../../../Shared/Utils/logger"
 
-const client = new DynamoDBClient({})
-const dynamo = DynamoDBDocumentClient.from(client)
+const client = new DynamoDBClient({
+  endpoint: "http://localhost:8000",
+  tls: false,
+  region: "local-env",
+  credentials: {
+    accessKeyId: "fakeMyKeyId",
+    secretAccessKey: "fakeSecretAccessKey",
+  },
+})
+
+const dynamo = DynamoDBDocumentClient.from(client, {
+  marshallOptions: {
+    convertEmptyValues: true,
+  },
+})
 
 // TODO: Recommendation: Avoid using any
 // TODO: investigate do we need sort key
@@ -32,7 +45,7 @@ export default class DynamoDB {
     try {
       const response = await dynamo.send(new PutCommand(props))
       logger.info("[DB] dbPut: " + JSON.stringify(response))
-      console.log(response.$metadata.httpStatusCode + "checkcheckcheck///")
+      console.log(response)
       return {
         statusCode: response.$metadata.httpStatusCode || 200,
       }

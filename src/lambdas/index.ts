@@ -9,6 +9,7 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
         return await propertyPost(event)
       }
       case "GET": {
+        console.log("request:", JSON.stringify(event, undefined, 2))
         if (event.pathParameters && event.pathParameters.ID) {
           return await propertyGetSingle(event)
         } else {
