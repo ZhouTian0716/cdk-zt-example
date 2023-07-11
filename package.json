@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "RealEstate CRM",
   "author": "David Dai",
+  "TABLE_NAME": "JR-RealEstate",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress",
     "test": "jest --config ./jest.config.json --rootDir .",
@@ -21,6 +22,7 @@
     "@aws-sdk/client-dynamodb": "^3.357.0",
     "@aws-sdk/client-ses": "^3.294.0",
     "@aws-sdk/lib-dynamodb": "^3.266.0",
+    "@shelf/jest-dynamodb": "^3.4.1",
     "aws-cdk-lib": "2.61.1",
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1386.0",

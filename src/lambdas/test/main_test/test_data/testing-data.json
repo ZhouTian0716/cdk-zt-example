@@ -1,0 +1,242 @@
+{
+  "request": {
+    "add": {
+      "resource": "aws-cloudfront",
+      "isBase64Encoded": false,
+      "httpMethod": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer XYZ",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"
+      },
+      "multiValueHeaders": {
+        "Content-Type": ["application/json"],
+        "Authorization": ["Bearer XYZ"],
+        "User-Agent": ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"]
+      },
+      "path": "/add-property",
+      "requestContext": {
+        "accountId": "1234567890",
+        "apiId": "abc123def456",
+        "authorizer": {
+          "name": "MyAuthorizer",
+          "scheme": "Bearer",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        },
+        "protocol": "HTTP",
+        "httpMethod": "GET",
+        "identity": {
+          "sourceIp": "127.0.0.1",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+          "accountId": "1234567890",
+          "accessKey": "ABC123",
+          "apiKey": "API_KEY",
+          "apiKeyId": "API_KEY_ID",
+          "caller": "user",
+          "cognitoAuthenticationProvider": "cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_1234567890",
+          "cognitoAuthenticationType": "authenticated",
+          "cognitoIdentityId": "ap-southeast-1:abcdefg-1234-5678-90ab-cdefghijklmn",
+          "cognitoIdentityPoolId": "ap-southeast-1:12345678-1234-1234-1234-1234567890ab",
+          "principalOrgId": null,
+          "sourceArn": "arn:aws:execute-api:ap-southeast-1:1234567890:abcdefg123/Stage/GET/users",
+          "user": "user",
+          "userArn": "arn:aws:iam::1234567890:user/user",
+          "clientCert": {
+            "clientCertPem": "-----BEGIN CERTIFICATE-----\nMIICyDCCAbCgAwIBAgIUVtTR4gDfN6Y3jb...-----END CERTIFICATE-----",
+            "issuerDN": "C=US, O=Example Organization, CN=Example Issuer",
+            "serialNumber": "1234567890",
+            "subjectDN": "C=US, O=Example Organization, CN=Example Subject",
+            "validity": {
+              "notBefore": "2022-01-01T00:00:00Z",
+              "notAfter": "2023-01-01T00:00:00Z"
+            }
+          }
+        },
+        "stage": "dev",
+        "requestId": "abc123def456789",
+        "resourceId": "xyz987pqr654",
+        "resourcePath": "/property",
+        "path": "/property",
+        "requestTimeEpoch": 1
+      }
+    },
+    "getByID": {
+      "resource": "aws-cloudfront",
+      "isBase64Encoded": false,
+      "httpMethod": "GET",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer XYZ",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"
+      },
+      "path": "/property/:id"
+    },
+    "list": {
+      "resource": "aws-cloudfront",
+      "isBase64Encoded": false,
+      "httpMethod": "GET",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer XYZ",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"
+      },
+      "path": "/property",
+      "body": null,
+      "multiValueHeaders": {
+        "Content-Type": ["application/json"],
+        "Authorization": ["Bearer XYZ"],
+        "User-Agent": ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"]
+      },
+      "requestContext": {},
+      "pathParameters": null,
+      "queryStringParameters": null,
+      "multiValueQueryStringParameters": null,
+      "stageVariables": null
+    },
+    "update": {
+      "resource": "aws-cloudfront",
+      "isBase64Encoded": false,
+      "httpMethod": "PUT",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer XYZ",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"
+      },
+      "path": "/update-property/:id"
+    },
+    "deleteByID": {
+      "resource": "aws-cloudfront",
+      "isBase64Encoded": false,
+      "httpMethod": "DELETE",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer XYZ",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"
+      },
+      "path": "/delete-property/:id"
+    },
+    "query": {
+      "resource": "aws-cloudfront",
+      "isBase64Encoded": false,
+      "httpMethod": "GET",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer XYZ",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) Chrome/58.0.3029.110 Safari/537.3"
+      },
+      "path": "/property/search"
+    }
+  },
+  "property": {
+    "Property01": {
+      "address": "236 Bourke Street",
+      "suburb": "Darlinghurst",
+      "postcode": "000",
+      "state": "NSW",
+      "cityCouncil": "Sydney",
+      "yearBuilt": 2010,
+      "coordinates": {
+        "lat": -33.877,
+        "lng": 151.2176
+      },
+      "agent": "Joe",
+      "bathrooms": 5,
+      "bedrooms": 5,
+      "carSpaces": 1,
+      "propertyType": "house",
+      "propertyArea": 155,
+      "landPrice": 3000,
+      "housePrice": 800000,
+      "sourceType": "new",
+      "settlementTime": {
+        "year": 2024,
+        "month": "June"
+      },
+      "files": ["000", "111"],
+      "POIs": [
+        {
+          "name": "Frazer Fountain Hyde Park",
+          "coordinates": {
+            "lat": -33.877,
+            "lng": 151.2176
+          },
+          "address": "120 Elizabeth St, Sydney NSW 2000"
+        },
+        {
+          "name": "Darlinghurst Public School",
+          "coordinates": {
+            "lat": -33.877,
+            "lng": 151.2176
+          },
+          "address": "Womerah Ave, Potts Point NSW 2011"
+        }
+      ]
+    },
+    "Property02": {
+      "PK": "Project",
+      "ID": "2",
+      "address": "236 Bourke Street",
+      "suburb": "Darlinghurst",
+      "state": "NSW",
+      "cityCouncil": "Sydney",
+      "yearBuilt": "2010",
+      "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
+      "agent": "Joe",
+      "bathrooms": "5",
+      "bedrooms": "5",
+      "carSpaces": "1",
+      "propertyType": "house",
+      "propertyArea": "155",
+      "landPrice": "3000",
+      "housePrice": "800000",
+      "description": "This is a description of the property",
+      "POI": [
+        {
+          "recordName": "Frazer Fountain Hyde Park",
+          "coordinates": { "lat": "-33.8770", "lng": "151.2176" },
+          "address": "120 Elizabeth St, Sydney NSW 2000"
+        },
+        {
+          "recordName": "Darlinghurst Public School",
+          "coordinates": { "lat": "-33.8770", "lng": "151.2176" },
+          "address": "Womerah Ave, Potts Point NSW 2011"
+        }
+      ],
+      "sourceType": "new",
+      "settlementTime": { "year": "2024", "month": "June" }
+    },
+    "Propert03": {
+      "PK": "Project",
+      "ID": "3",
+      "address": "236 Bourke Street",
+      "suburb": "Darlinghurst",
+      "state": "NSW",
+      "cityCouncil": "Sydney",
+      "yearBuilt": "2010",
+      "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
+      "agent": "Joe",
+      "bathrooms": "5",
+      "bedrooms": "5",
+      "carSpaces": "1",
+      "propertyType": "house",
+      "propertyArea": "155",
+      "landPrice": "3000",
+      "housePrice": "800000",
+      "description": "This is a description of the property",
+      "POI": [
+        {
+          "recordName": "Frazer Fountain Hyde Park",
+          "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
+          "address": "120 Elizabeth St, Sydney NSW 2000"
+        },
+        {
+          "recordName": "Darlinghurst Public School",
+          "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
+          "address": "Womerah Ave, Potts Point NSW 2011"
+        }
+      ],
+      "sourceType": "new",
+      "settlementTime": { "year": "2024", "month": "June" }
+    }
+  }
+}
