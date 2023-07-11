@@ -8,6 +8,7 @@ export const propertySchema = {
   id: "/Property",
   type: "object",
   properties: {
+    description: { type: "string" },
     address: { type: "string" },
     suburb: { type: "string" },
     postcode: { type: "string" },
