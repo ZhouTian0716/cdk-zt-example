@@ -1,7 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda"
 import { BadRequestError, HttpError, UnexpectedError } from "./common/common"
 import { propertyDelete, propertyGetAll, propertyGetSingle, propertyPost, propertyUpdate } from "./entity/property"
-import { propertySearch } from "./entity/property"
 
 export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
@@ -10,10 +9,7 @@ export const propertyHandler = async (event: APIGatewayProxyEvent): Promise<APIG
         return await propertyPost(event)
       }
       case "GET": {
-        console.log("request:", JSON.stringify(event, undefined, 2))
-        if (event.queryStringParameters && event.queryStringParameters.keyword) {
-          return await propertySearch(event)
-        } else if (event.pathParameters && event.pathParameters.ID) {
+        if (event.pathParameters && event.pathParameters.ID) {
           return await propertyGetSingle(event)
         } else {
           return await propertyGetAll(event)

@@ -50,6 +50,7 @@ export default class DynamoDB {
         statusCode: response.$metadata.httpStatusCode || 200,
       }
     } catch (error) {
+      console.log(error)
       return {
         statusCode: 500,
         errorMessage: (error as Error).stack,

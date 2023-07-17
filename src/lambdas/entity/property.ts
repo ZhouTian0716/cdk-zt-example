@@ -148,5 +148,5 @@ export const propertyUpdate = async (event: APIGatewayProxyEvent): Promise<APIGa
     throw new UnexpectedError(dbResponse.errorMessage)
   }
 
-  return Response(200, { message: "Item changed successfully" })
+  return Response(200, { message: "Item changed successfully", properties: { item: [params.Item] } })
 }
