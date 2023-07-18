@@ -80,7 +80,7 @@ describe("Mock testing", () => {
     expect(propertyItem.postcode).toEqual("111")
   })
 
-  it("test05: delete items", async () => {
+  it("test05: delete items by id", async () => {
     const event: APIGatewayProxyEvent = {
       ...data.request.deleteByID,
       body: JSON.stringify(data.property.Property02),
@@ -102,7 +102,7 @@ describe("Mock testing", () => {
     expect(properties.length).toEqual(0)
   })
 
-  it("test07: add 10 new properties and search them from the mock data", async () => {
+  it("test07: add 2 new properties and search them from the mock data", async () => {
     // add property
     const event_1: APIGatewayProxyEvent = {
       ...data.request.add,
@@ -114,33 +114,53 @@ describe("Mock testing", () => {
     }
     const event_2: APIGatewayProxyEvent = {
       ...data.request.add,
-      body: JSON.stringify(data.property.Property01),
+      body: JSON.stringify(data.property.Property02),
       pathParameters: null,
       queryStringParameters: null,
       multiValueQueryStringParameters: null,
       stageVariables: null,
     }
-    let count = 0
-    while (count < 5) {
-      JSON.parse(event_1.body as string).postcode = count.toString
-      await propertyHandler(event_1)
-      count++
-    }
-    count = 0
-    while (count < 5) {
-      JSON.parse(event_2.body as string).postcode = count.toString
-      JSON.parse(event_2.body as string).agent = "David"
-      await propertyHandler(event_2)
-      count++
-    }
+    // let count = 0
+    // while (count < 5) {
+    //   JSON.parse(event_1.body as string).postcode = count.toString
+    //   await propertyHandler(event_1)
+    //   JSON.parse(event_2.body as string).postcode = count.toString
+    //   JSON.parse(event_2.body as string).description = "David"
+    //   await propertyHandler(event_2)
+    //   count++
+    // }
+    await propertyHandler(event_1)
+    await propertyHandler(event_2)
     const output = await propertyHandler(data.request.list as unknown as APIGatewayProxyEvent)
     console.log(output)
     expect(output.statusCode).toEqual(200)
     const properties = JSON.parse(output.body)
-    expect(properties.length).toEqual(10)
+    expect(properties.length).toEqual(2)
   })
 
-  it("test08: search the data agent == David, and search the data postcode == '4' ", async () => {
-    return
+  it("test08: search the data which agent is Joe, and search the data which postcode is '111' ", async () => {
+    const event01: APIGatewayProxyEvent = {
+      ...data.request.query,
+      body: null,
+      pathParameters: null,
+      queryStringParameters: { keyword: "Joe" },
+      stageVariables: null,
+    }
+    const event02: APIGatewayProxyEvent = {
+      ...data.request.query,
+      body: null,
+      pathParameters: null,
+      queryStringParameters: { keyword: "111" },
+      stageVariables: null,
+    }
+    const output01 = await propertyHandler(event01)
+    const output02 = await propertyHandler(event02)
+    expect(output01.statusCode).toEqual(200)
+    expect(output02.statusCode).toEqual(200)
+    console.log(output01)
+    const properties01_postcode = JSON.parse(output01.body)[0].postcode
+    const properties02_agent = JSON.parse(output02.body)[0].agent
+    expect(properties01_postcode).toEqual("000")
+    expect(properties02_agent).toEqual("Douglas")
   })
 })
