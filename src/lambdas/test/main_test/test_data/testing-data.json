@@ -345,8 +345,8 @@
   },
   "property": {
     "Property01": {
-      "address": "236 Bourke Street",
-      "suburb": "Darlinghurst",
+      "address": "60 Tribune street",
+      "suburb": "Southbank",
       "postcode": "000",
       "state": "NSW",
       "cityCouncil": "Sydney",
@@ -364,6 +364,7 @@
       "landPrice": 3000,
       "housePrice": 800000,
       "sourceType": "new",
+      "description": "This is a description",
       "settlementTime": {
         "year": 2024,
         "month": "June"
@@ -408,6 +409,7 @@
       "landPrice": 3000,
       "housePrice": 800000,
       "sourceType": "new",
+      "description": "good property",
       "settlementTime": {
         "year": 2024,
         "month": "June"
@@ -432,38 +434,50 @@
         }
       ]
     },
-    "Propert03": {
-      "PK": "Project",
-      "ID": "3",
+    "Property03": {
       "address": "236 Bourke Street",
       "suburb": "Darlinghurst",
+      "postcode": "111",
       "state": "NSW",
       "cityCouncil": "Sydney",
-      "yearBuilt": "2010",
-      "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
-      "agent": "Joe",
-      "bathrooms": "5",
-      "bedrooms": "5",
-      "carSpaces": "1",
+      "yearBuilt": 2010,
+      "coordinates": {
+        "lat": -33.877,
+        "lng": 151.2176
+      },
+      "agent": "Douglas",
+      "bathrooms": 5,
+      "bedrooms": 5,
+      "carSpaces": 1,
       "propertyType": "house",
-      "propertyArea": "155",
-      "landPrice": "3000",
-      "housePrice": "800000",
-      "description": "This is a description of the property",
-      "POI": [
+      "propertyArea": 155,
+      "landPrice": 3000,
+      "housePrice": 800000,
+      "sourceType": "new",
+      "description": "good property",
+      "settlementTime": {
+        "year": 2024,
+        "month": "June"
+      },
+      "files": ["000", "111"],
+      "POIs": [
         {
-          "recordName": "Frazer Fountain Hyde Park",
-          "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
+          "name": "Frazer Fountain Hyde Park",
+          "coordinates": {
+            "lat": -33.877,
+            "lng": 151.2176
+          },
           "address": "120 Elizabeth St, Sydney NSW 2000"
         },
         {
-          "recordName": "Darlinghurst Public School",
-          "coordinates": { "latitude": "-33.8770", "longitude": "151.2176" },
+          "name": "Darlinghurst Public School",
+          "coordinates": {
+            "lat": -33.877,
+            "lng": 151.2176
+          },
           "address": "Womerah Ave, Potts Point NSW 2011"
         }
-      ],
-      "sourceType": "new",
-      "settlementTime": { "year": "2024", "month": "June" }
+      ]
     }
   }
 }
