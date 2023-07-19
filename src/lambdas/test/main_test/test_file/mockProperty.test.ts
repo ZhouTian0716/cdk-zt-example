@@ -28,14 +28,11 @@ describe("Mock testing", () => {
       multiValueQueryStringParameters: null,
       stageVariables: null,
     }
+
     const output = await propertyHandler(event)
     expect(output.statusCode).toEqual(201)
     PK = JSON.parse(output.body).properties.item[0].PROJECT
     id = JSON.parse(output.body).properties.item[0].ID
-    const a = new Date()
-    const createdDate = a.toString
-    const b = new Date()
-    const lastModifiedDate = b.toString
 
     expect(PK).toBe("PROJECT")
     expect(id.length).toBeGreaterThan(0)
