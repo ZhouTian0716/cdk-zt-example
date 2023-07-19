@@ -39,7 +39,7 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
   const dbResponse = await dynamoDB.dbPut(params)
 
   if (dbResponse.statusCode === 200) {
-    return Response(201, { message: "Item created successfully" })
+    return Response(201, { message: "Item created successfully", properties: { item: [params.Item] } }) // for knowing the item added information
   } else {
     throw new BadRequestError(dbResponse.errorMessage)
   }
@@ -148,7 +148,7 @@ export const propertyUpdate = async (event: APIGatewayProxyEvent): Promise<APIGa
     throw new UnexpectedError(dbResponse.errorMessage)
   }
 
-  return Response(200, { message: "Item changed successfully" })
+  return Response(200, { message: "Item changed successfully", properties: { item: [params.Item] } })
 }
 
 //search
