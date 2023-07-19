@@ -35,12 +35,10 @@ export const propertyPost = async (event: APIGatewayProxyEvent): Promise<APIGate
     TableName: process.env.TABLE_NAME,
     Item: { PROJECT: project, ID: uuid, ...item },
   }
-  console.log(params)
 
   const dbResponse = await dynamoDB.dbPut(params)
 
   if (dbResponse.statusCode === 200) {
-    console.log(dbResponse)
     return Response(201, { message: "Item created successfully", properties: { item: [params.Item] } }) // for knowing the item added information
   } else {
     throw new BadRequestError(dbResponse.errorMessage)

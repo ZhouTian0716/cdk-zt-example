@@ -97,7 +97,6 @@ describe("Mock testing", () => {
 
   it("test06: list all data after delete", async () => {
     const output = await propertyHandler(data.request.list as unknown as APIGatewayProxyEvent)
-    console.log(output)
     expect(output.statusCode).toEqual(200)
     const properties = JSON.parse(output.body)
     expect(properties.length).toEqual(0)
@@ -135,7 +134,6 @@ describe("Mock testing", () => {
     await propertyHandler(event_2)
     await propertyHandler(event_3)
     const output = await propertyHandler(data.request.list as unknown as APIGatewayProxyEvent)
-    console.log(output)
     expect(output.statusCode).toEqual(200)
     const properties = JSON.parse(output.body)
     expect(properties.length).toEqual(3)

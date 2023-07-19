@@ -6,7 +6,7 @@
   "TABLE_NAME": "JR-RealEstate",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress",
-    "test": "jest --config ./jest.config.json --rootDir .",
+    "test": "jest --config ./jest.config.ts --rootDir .",
     "lint:fix": "eslint . --fix",
     "douglas_make_deploy": "cdk deploy JR-RealEstate-douglas",
     "prod_make_deploy": "cdk deploy JR-RealEstate-prod",

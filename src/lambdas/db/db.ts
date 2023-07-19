@@ -14,7 +14,6 @@ import {
 } from "@aws-sdk/lib-dynamodb"
 import { logger } from "../../../Shared/Utils/logger"
 
-console.log(process.env.NODE_ENV)
 let c: DynamoDBClient
 if (process.env.NODE_ENV === "test") {
   c = new DynamoDBClient({
@@ -63,7 +62,6 @@ export default class DynamoDB {
     try {
       const response = await dynamo.send(new PutCommand(props))
       logger.info("[DB] dbPut: " + JSON.stringify(response))
-      console.log(response)
       return {
         statusCode: response.$metadata.httpStatusCode || 200,
       }
@@ -129,7 +127,6 @@ export default class DynamoDB {
     try {
       const response = await dynamo.send(new QueryCommand(props))
       logger.info("[DB] dbQuery: " + JSON.stringify(response))
-      console.log(response)
       return {
         statusCode: response.$metadata.httpStatusCode || 200,
         data: response.Items,
