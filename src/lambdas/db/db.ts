@@ -14,9 +14,9 @@ import {
 } from "@aws-sdk/lib-dynamodb"
 import { logger } from "../../../Shared/Utils/logger"
 
-let c: DynamoDBClient
+let client: DynamoDBClient
 if (process.env.NODE_ENV === "test") {
-  c = new DynamoDBClient({
+  client = new DynamoDBClient({
     endpoint: "http://localhost:8000",
     tls: false,
     region: "local-env",
@@ -26,20 +26,8 @@ if (process.env.NODE_ENV === "test") {
     },
   })
 } else {
-  c = new DynamoDBClient({})
+  client = new DynamoDBClient({})
 }
-
-const client = c
-
-// const client = new DynamoDBClient({
-//   endpoint: "http://localhost:8000",
-//   tls: false,
-//   region: "local-env",
-//   credentials: {
-//     accessKeyId: "fakeMyKeyId",
-//     secretAccessKey: "fakeSecretAccessKey",
-//   },
-// })
 
 const dynamo = DynamoDBDocumentClient.from(client, {
   marshallOptions: {
@@ -66,7 +54,6 @@ export default class DynamoDB {
         statusCode: response.$metadata.httpStatusCode || 200,
       }
     } catch (error) {
-      console.log(error)
       return {
         statusCode: 500,
         errorMessage: (error as Error).stack,
