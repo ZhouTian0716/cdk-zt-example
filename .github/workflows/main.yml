@@ -14,6 +14,7 @@ jobs:
         run: npm ci
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     container: node:16
     steps:
@@ -33,7 +34,7 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     container: node:16
     env:
@@ -48,6 +49,9 @@ jobs:
 
       - name: TypeScript Build
         run: npx tsc --outDir $GITHUB_WORKSPACE/dist
+
+      - name: Clean output directory
+        run: rm -rf $GITHUB_WORKSPACE/dist
 
       - name: Transpile TypeScript
         run: npx tsc ./src/lambdas/index.ts
