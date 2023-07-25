@@ -14,8 +14,26 @@ import {
 } from "@aws-sdk/lib-dynamodb"
 import { logger } from "../../../Shared/Utils/logger"
 
-const client = new DynamoDBClient({})
-const dynamo = DynamoDBDocumentClient.from(client)
+let client: DynamoDBClient
+if (process.env.NODE_ENV === "test") {
+  client = new DynamoDBClient({
+    endpoint: "http://localhost:8000",
+    tls: false,
+    region: "local-env",
+    credentials: {
+      accessKeyId: "fakeMyKeyId",
+      secretAccessKey: "fakeSecretAccessKey",
+    },
+  })
+} else {
+  client = new DynamoDBClient({})
+}
+
+const dynamo = DynamoDBDocumentClient.from(client, {
+  marshallOptions: {
+    convertEmptyValues: true,
+  },
+})
 
 // TODO: Recommendation: Avoid using any
 // TODO: investigate do we need sort key
@@ -99,6 +117,7 @@ export default class DynamoDB {
       return {
         statusCode: response.$metadata.httpStatusCode || 200,
         data: response.Items,
+        id: response.$metadata.requestId,
       }
     } catch (error) {
       return {

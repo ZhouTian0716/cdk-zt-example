@@ -16,6 +16,7 @@ export interface Logger {
 /** Log levels */
 export type LogLevel = "debug" | "info" | "warn" | "error"
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const NO_OP: LogFn = (message?: any, ...optionalParams: any[]) => {}
 
 /** Logger which outputs to the browser console */
