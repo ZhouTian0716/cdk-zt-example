@@ -1,8 +1,6 @@
 import data from "../test_data/testing-data.json"
 import { propertyHandler } from "../../../index"
-import { APIGatewayProxyEvent, LambdaEvent } from "../../../common/common"
-import { stringify } from "querystring"
-import { Construct } from "constructs"
+import { APIGatewayProxyEvent } from "../../../common/common"
 
 process.env.TABLE_NAME = "TEST_TABLE"
 process.env.IS_MOCK = "true"
@@ -127,9 +125,10 @@ describe("Mock testing", () => {
       stageVariables: null,
     }
 
-    await propertyHandler(event_1)
-    await propertyHandler(event_2)
-    await propertyHandler(event_3)
+    const add01 = propertyHandler(event_1)
+    const add02 = propertyHandler(event_2)
+    const add03 = propertyHandler(event_3)
+    await Promise.all([add01, add02, add03])
     const output = await propertyHandler(data.request.list as unknown as APIGatewayProxyEvent)
     expect(output.statusCode).toEqual(200)
     const properties = JSON.parse(output.body)
@@ -153,6 +152,13 @@ describe("Mock testing", () => {
       queryStringParameters: { keyword: "111" },
       stageVariables: null,
     }
+    // const event02: APIGatewayProxyEvent = {
+    //   ...data.request.query,
+    //   body: null,
+    //   pathParameters: null,
+    //   queryStringParameters: { keyword: "111" },
+    //   stageVariables: null,
+    // }
     // address
     const event03: APIGatewayProxyEvent = {
       ...data.request.query,
@@ -177,44 +183,28 @@ describe("Mock testing", () => {
       queryStringParameters: { keyword: "Darlinghurst" },
       stageVariables: null,
     }
-    const output01 = await propertyHandler(event01)
-    const output02 = await propertyHandler(event02)
-    const output03 = await propertyHandler(event03)
-    const output04 = await propertyHandler(event04)
-    const output05 = await propertyHandler(event05)
 
-    expect(output01.statusCode).toEqual(200)
-    expect(output02.statusCode).toEqual(200)
-    expect(output03.statusCode).toEqual(200)
-    expect(output04.statusCode).toEqual(200)
-    expect(output05.statusCode).toEqual(200)
+    const output01 = propertyHandler(event01)
+    const output02 = propertyHandler(event02)
+    const output03 = propertyHandler(event03)
+    const output04 = propertyHandler(event04)
+    const output05 = propertyHandler(event05)
 
-    expect(JSON.parse(output01.body).length).toEqual(2)
-    expect(JSON.parse(output02.body).length).toEqual(2)
-    expect(JSON.parse(output03.body).length).toEqual(2)
-    expect(JSON.parse(output04.body).length).toEqual(2)
-    expect(JSON.parse(output05.body).length).toEqual(2)
-
-    const properties01_agent01 = JSON.parse(output01.body)[0].agent
-    const properties01_agent02 = JSON.parse(output01.body)[1].agent
-    const properties02_postcode01 = JSON.parse(output02.body)[0].postcode
-    const peoperties02_postcode02 = JSON.parse(output02.body)[1].postcode
-    const properties03_address01 = JSON.parse(output03.body)[0].address
-    const properties03_address02 = JSON.parse(output03.body)[1].address
-    const properties04_description01 = JSON.parse(output04.body)[0].description
-    const properties04_description02 = JSON.parse(output04.body)[1].description
-    const properties05_suburb01 = JSON.parse(output05.body)[0].suburb
-    const properties05_suburb02 = JSON.parse(output05.body)[1].suburb
-
-    expect(properties01_agent01).toEqual("Douglas")
-    expect(properties01_agent02).toEqual("Douglas")
-    expect(properties02_postcode01).toEqual("111")
-    expect(peoperties02_postcode02).toEqual("111")
-    expect(properties03_address01).toEqual("236 Bourke Street")
-    expect(properties03_address02).toEqual("236 Bourke Street")
-    expect(properties04_description01).toEqual("good property")
-    expect(properties04_description02).toEqual("good property")
-    expect(properties05_suburb01).toEqual("Darlinghurst")
-    expect(properties05_suburb02).toEqual("Darlinghurst")
+    await Promise.all([output01, output02, output03, output04, output05]).then((values) => {
+      values.forEach((output) => {
+        expect(output.statusCode).toEqual(200)
+        expect(JSON.parse(output.body).length).toEqual(2)
+      })
+      expect(JSON.parse(values[0].body)[0].agent).toEqual("Douglas")
+      expect(JSON.parse(values[0].body)[1].agent).toEqual("Douglas")
+      expect(JSON.parse(values[1].body)[0].postcode).toEqual("111")
+      expect(JSON.parse(values[1].body)[1].postcode).toEqual("111")
+      expect(JSON.parse(values[2].body)[0].address).toEqual("236 Bourke Street")
+      expect(JSON.parse(values[2].body)[1].address).toEqual("236 Bourke Street")
+      expect(JSON.parse(values[3].body)[0].description).toEqual("good property")
+      expect(JSON.parse(values[3].body)[1].description).toEqual("good property")
+      expect(JSON.parse(values[4].body)[0].suburb).toEqual("Darlinghurst")
+      expect(JSON.parse(values[4].body)[1].suburb).toEqual("Darlinghurst")
+    })
   })
 })

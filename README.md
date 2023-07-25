@@ -20,3 +20,11 @@ You need to install the following extension:
 
 - Code Spell Checker
 - Prettier - Code formatter
+
+# Unit Test
+
+when you run command "jest", "npm run test", or pipeline test step
+
+jest will set the NODE_ENV => "test"
+
+src/lambda/db/db.ts will mock the dynamodb client if NODE_ENV == "test"
