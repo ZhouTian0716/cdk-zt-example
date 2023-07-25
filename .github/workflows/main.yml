@@ -76,13 +76,13 @@ jobs:
         run: npm ci
 
       - name: TypeScript Build
-        run: npx tsc --outDir $GITHUB_WORKSPACE/dist
+        run: npx tsc --outDir ./__w
 
       - name: Clean output directory
-        run: rm -rf $GITHUB_WORKSPACE/dist
+        run: rm -rf ./__w
 
       - name: Transpile TypeScript
-        run: npx tsc --outDir $GITHUB_WORKSPACE/dist ./src/lambdas/index.ts
+        run: npx tsc --outDir ./__w ./src/lambdas/index.ts
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
