@@ -152,13 +152,6 @@ describe("Mock testing", () => {
       queryStringParameters: { keyword: "111" },
       stageVariables: null,
     }
-    // const event02: APIGatewayProxyEvent = {
-    //   ...data.request.query,
-    //   body: null,
-    //   pathParameters: null,
-    //   queryStringParameters: { keyword: "111" },
-    //   stageVariables: null,
-    // }
     // address
     const event03: APIGatewayProxyEvent = {
       ...data.request.query,

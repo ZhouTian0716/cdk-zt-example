@@ -87,6 +87,9 @@ jobs:
       - name: list files
         run: ls $GITHUB_WORKSPACE/dist -al
 
+      - name: list files 01
+        run: ls __w/dist -al
+
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
