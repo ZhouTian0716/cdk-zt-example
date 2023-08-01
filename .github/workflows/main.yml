@@ -66,11 +66,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: TypeScript Build
-        run: npx tsc --outDir $GITHUB_WORKSPACE
-
       - name: Clean output directory
         run: rm -rf $GITHUB_WORKSPACE
+
+      - name: TypeScript Build
+        run: npx tsc --outDir $GITHUB_WORKSPACE
 
       - name: Transpile TypeScript
         run: npx tsc --outDir $GITHUB_WORKSPACE ./src/lambdas/index.ts
