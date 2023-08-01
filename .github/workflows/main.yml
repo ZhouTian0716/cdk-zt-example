@@ -67,16 +67,16 @@ jobs:
         run: npm ci
 
       - name: TypeScript Build
-        run: npx tsc --outDir $GITHUB_WORKSPACE/dist
+        run: npx tsc --outDir $GITHUB_WORKSPACE
 
       - name: Clean output directory
-        run: rm -rf $GITHUB_WORKSPACE/dist
+        run: rm -rf $GITHUB_WORKSPACE
 
       - name: Transpile TypeScript
         run: npx tsc --outDir $GITHUB_WORKSPACE/dist ./src/lambdas/index.ts
 
       - name: check work place
-        run: pwd
+        run: echo $GITHUB_WORKSPACE
 
       - name: list files 01
         run: ls $GITHUB_WORKSPACE -al
