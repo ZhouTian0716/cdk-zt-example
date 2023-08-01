@@ -69,8 +69,8 @@ jobs:
       - name: Clean output directory
         run: rm -rf $GITHUB_WORKSPACE
 
-      - name: TypeScript Build
-        run: npx tsc
+      # - name: TypeScript Build
+      #   run: npx tsc
 
       - name: Transpile TypeScript
         run: npx tsc --outDir $GITHUB_WORKSPACE ./src/lambdas/index.ts
