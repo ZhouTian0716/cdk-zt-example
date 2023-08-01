@@ -70,7 +70,7 @@ jobs:
         run: rm -rf $GITHUB_WORKSPACE
 
       - name: TypeScript Build
-        run: npx tsc --outDir $GITHUB_WORKSPACE
+        run: npx tsc
 
       - name: Transpile TypeScript
         run: npx tsc --outDir $GITHUB_WORKSPACE ./src/lambdas/index.ts
