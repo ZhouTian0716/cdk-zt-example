@@ -62,6 +62,8 @@ jobs:
       #     key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
       #     restore-keys: |
       #       ${{ runner.os }}-node-
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: check docker version
         run: docker --version
