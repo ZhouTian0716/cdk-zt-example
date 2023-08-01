@@ -63,9 +63,6 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-node-
 
-      - uses: docker-practice/actions-setup-docker@master
-        timeout-minutes: 12
-
       - name: check docker version
         run: docker --version
 
