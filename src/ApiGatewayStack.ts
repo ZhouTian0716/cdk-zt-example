@@ -14,7 +14,7 @@ export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, f
     runtime: Lambda.Runtime.NODEJS_16_X,
     handler: "propertyHandler",
     // entry: join(__dirname, "/lambdas/index.js"),
-    entry: join("./build/lambdas/index/index.js"),
+    entry: join("./.build/lambdas/index/index.js"),
     environment: {
       TABLE_NAME: propertyTable,
     },
