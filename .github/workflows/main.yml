@@ -32,7 +32,7 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  configure:
+  deploy-set-configure:
     needs: test
     runs-on: ubuntu-latest
     outputs:
@@ -42,8 +42,8 @@ jobs:
         run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
 
   deploy:
-    if: github.ref == 'refs/heads/feature/github-actions'
-    needs: configure
+    if: github.ref == 'refs/heads/main'
+    needs: deploy-set-configure
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
