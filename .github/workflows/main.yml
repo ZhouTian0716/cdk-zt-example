@@ -64,7 +64,9 @@ jobs:
       #       ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install -g --unsafe-perm=true --allow-root
+          npm ci
 
       # - name: Clean output directory
       #   run: rm -rf $GITHUB_WORKSPACE
