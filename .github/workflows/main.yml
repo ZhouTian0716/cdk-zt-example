@@ -3,6 +3,14 @@ name: CDK Build & Deploy
 on: push
 
 jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      uid_gid: ${{ steps.get-user.outputs.uid_gid }}
+    steps:
+      - id: get-user
+        run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
+
   build:
     runs-on: ubuntu-latest
     container: node:16
@@ -46,7 +54,9 @@ jobs:
     # for  test
     needs: build
     runs-on: ubuntu-latest
-    container: node:16
+    container:
+      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+      options: --user ${{ needs.configure.outputs.uid_gid }}
     env:
       CRM_ENV: prod
 
@@ -64,9 +74,7 @@ jobs:
       #       ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: |
-          npm install -g --unsafe-perm=true --allow-root
-          npm ci
+        run: npm ci
 
       # - name: Clean output directory
       #   run: rm -rf $GITHUB_WORKSPACE
