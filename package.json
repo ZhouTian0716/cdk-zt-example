@@ -44,6 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "aws-cdk": "2.61.1",
     "aws-cdk-lib": "^2.61.1",
+    "esbuild": "^0.18.17",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
