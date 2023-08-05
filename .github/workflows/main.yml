@@ -110,10 +110,10 @@ jobs:
           npm install -g aws-cdk
 
       - name: Bootstrap AWS CDK
-        run: cdk bootstrap --profile prod
+        run: cdk bootstrap
 
       - name: CDK Synth
-        run: sudo cdk synth
+        run: cdk synth
 
       - name: Deploy stack
-        run: sudo cdk deploy --require-approval never
+        run: cdk deploy --require-approval never
