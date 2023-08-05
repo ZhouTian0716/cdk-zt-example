@@ -55,7 +55,7 @@ const config: Configuration = {
   output: {
     filename: "[name]/index.js",
     libraryTarget: "umd",
-    path: resolve(__dirname, "./.build"),
+    path: resolve(__dirname, "./build"),
   },
   plugins: [
     new DefinePlugin({
