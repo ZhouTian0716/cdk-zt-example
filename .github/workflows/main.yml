@@ -89,6 +89,10 @@ jobs:
           apt-get update
           apt-get install -y awscli
 
+      - name: Install AWS CDK
+        run: |
+          npm install -g aws-cdk
+
       - name: Bootstrap AWS CDK
         run: cdk bootstrap --profile prod
 
