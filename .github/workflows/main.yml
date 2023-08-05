@@ -85,10 +85,10 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Bootstrap AWS CDK
-        run: npx cdk bootstrap
+        run: cdk bootstrap
 
       - name: CDK Synth
-        run: npx cdk synth
+        run: cdk synth
 
       - name: Deploy stack
-        run: npx cdk deploy --require-approval never
+        run: cdk deploy --require-approval never
