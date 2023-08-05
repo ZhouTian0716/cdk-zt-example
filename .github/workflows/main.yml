@@ -62,12 +62,6 @@ jobs:
       #     key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
       #     restore-keys: |
       #       ${{ runner.os }}-node-
-      - name: Set up Docker
-        run: apt-get update
-          apt-get install docker
-
-      - name: check docker version
-        run: docker --version
 
       - name: Install dependencies
         run: npm ci
@@ -79,16 +73,9 @@ jobs:
       # - name: TypeScript Build
       #   run: npx tsc
 
-      - name: Transpile TypeScript
-        run: npx tsc --build tsconfig.json
+      - name: build
+        run: npm run build
         shell: bash
-
-      - name: check work place
-        run: echo $GITHUB_WORKSPACE
-        shell: bash
-
-      - name: list files 01
-        run: ls $GITHUB_WORKSPACE -al
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
