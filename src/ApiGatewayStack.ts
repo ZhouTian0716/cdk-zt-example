@@ -3,7 +3,7 @@ import * as Apigateway from "aws-cdk-lib/aws-apigateway"
 import * as Lambda from "aws-cdk-lib/aws-lambda"
 import { Tracing } from "aws-cdk-lib/aws-lambda"
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
-import { join } from "path"
+import { dirname, join } from "path"
 import { Duration } from "aws-cdk-lib"
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam"
 
@@ -14,7 +14,7 @@ export function createApiGatewayStack(stack: Cdk.Stack, propertyTable: string, f
     runtime: Lambda.Runtime.NODEJS_16_X,
     handler: "propertyHandler",
     // entry: join(__dirname, "/lambdas/index.js"),
-    entry: join("./.build/lambdas/index.js"),
+    entry: join("./build/lambdas/index/index.js"),
     environment: {
       TABLE_NAME: propertyTable,
     },
