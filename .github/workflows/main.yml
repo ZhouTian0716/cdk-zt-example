@@ -3,14 +3,6 @@ name: CDK Build & Deploy
 on: push
 
 jobs:
-  configure:
-    runs-on: ubuntu-latest
-    outputs:
-      uid_gid: ${{ steps.get-user.outputs.uid_gid }}
-    steps:
-      - id: get-user
-        run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
-
   build:
     runs-on: ubuntu-latest
     container: node:16
@@ -20,6 +12,15 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+  configure:
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      uid_gid: ${{ steps.get-user.outputs.uid_gid }}
+    steps:
+      - id: get-user
+        run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
 
   # test:
   #   needs: build
@@ -52,7 +53,7 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/feature/github-actions'
     # for  test
-    needs: build
+    needs: configure
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
