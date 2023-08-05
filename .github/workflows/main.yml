@@ -84,8 +84,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
+      - name: Install AWS CLI
+        run: |
+          apt-get update
+          apt-get install -y awscli
+
       - name: Bootstrap AWS CDK
-        run: cdk bootstrap
+        run: cdk bootstrap --profile prod
 
       - name: CDK Synth
         run: cdk synth
