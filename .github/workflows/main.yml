@@ -13,6 +13,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    container: node:16
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: "11"
+
+      - name: Run tests
+        run: npm run test
+
   configure:
     needs: build
     runs-on: ubuntu-latest
@@ -22,37 +41,8 @@ jobs:
       - id: get-user
         run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
 
-  # test:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   container: node:16
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     - name: cache independences
-  #       id: cache-dependencies
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ~/.npm
-  #         key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-node-
-
-  #     - name: Install dependencies
-  #       run: npm ci
-
-  #     - name: set up JDK
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: "11"
-
-  #     - name: Run tests
-  #       run: npm run test
-
   deploy:
     if: github.ref == 'refs/heads/feature/github-actions'
-    # for  test
     needs: configure
     runs-on: ubuntu-latest
     container:
@@ -70,24 +60,8 @@ jobs:
         with:
           node-version: "16"
 
-      # - name: cache independences
-      #   id: cache-dependencies
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
-
       - name: Install dependencies
         run: npm ci
-
-      # - name: Clean output directory
-      #   run: rm -rf $GITHUB_WORKSPACE
-      #   shell: bash
-
-      # - name: TypeScript Build
-      #   run: npx tsc
 
       - name: build
         run: npm run build
@@ -99,15 +73,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
-
-      # - name: Install AWS CLI
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y awscli
-
-      - name: Install AWS CDK
-        run: |
-          npm install -g aws-cdk
 
       - name: Bootstrap AWS CDK
         run: cdk bootstrap
