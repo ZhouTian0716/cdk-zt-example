@@ -107,7 +107,7 @@ jobs:
 
       - name: Install AWS CDK
         run: |
-          sudo npm install -g aws-cdk
+          npm install -g aws-cdk
 
       - name: Bootstrap AWS CDK
         run: cdk bootstrap --profile prod
