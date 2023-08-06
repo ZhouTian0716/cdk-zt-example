@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
-      options: --user ${{ needs.configure.outputs.uid_gid }}
+      options: --user ${{ needs.deploy-set-configure.outputs.uid_gid }}
     env:
       CRM_ENV: prod
 
