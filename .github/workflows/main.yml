@@ -14,6 +14,7 @@ jobs:
         run: npm ci
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     container: node:16
     steps:
@@ -31,11 +32,22 @@ jobs:
       - name: Run tests
         run: npm run test
 
+  deploy-set-configure:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      uid_gid: ${{ steps.get-user.outputs.uid_gid }}
+    steps:
+      - id: get-user
+        run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
+
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: deploy-set-configure
     runs-on: ubuntu-latest
-    container: node:16
+    container:
+      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+      options: --user ${{ needs.configure.outputs.uid_gid }}
     env:
       CRM_ENV: prod
 
@@ -43,11 +55,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: set_up_nodeJs
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Transpile TypeScript
-        run: npx tsc ./src/lambdas/index.ts
+      - name: build
+        run: npm run build
+        shell: bash
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -56,11 +74,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
+
       - name: Bootstrap AWS CDK
-        run: npx cdk bootstrap
+        run: cdk bootstrap
 
       - name: CDK Synth
-        run: npx cdk synth
+        run: cdk synth
 
       - name: Deploy stack
-        run: npx cdk deploy --require-approval never
+        run: cdk deploy --require-approval never

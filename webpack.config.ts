@@ -7,10 +7,16 @@ const isDevelopment = process.env.NODE_ENV !== "production"
 
 // always build lambda code so we get type checking in 'npm run watch' and can 'cdk deploy' at any time
 const entry: { [key: string]: string } = {
-  "lambdas/sample": resolve(__dirname, "./src/lambdas/sample/test.ts"),
+  // "lambdas/sample/test": resolve(__dirname, "./src/lambdas/sample/test.ts"),
+  // "lambdas/test/main_test": resolve(__dirname, "./src/test/test_file/mockProperty.ts"),
+  "lambdas/index": resolve(__dirname, "./src/lambdas/index.ts"), // this is the entry point for all lambdas
+  // "lambdas/db": resolve(__dirname, "./src/lambdas/db/db.ts"),
+  // "lambdas/entity": resolve(__dirname, "./src/lambdas/entity/property.ts"),
+  // "lambdas/common": resolve(__dirname, "./src/lambdas/common/common.ts"),
 }
 
 if (isDevelopment) {
+  entry["lambdas/test"] = resolve(__dirname, "./src/test/test_file/mockProperty.ts")
   entry["servers/webhook"] = resolve(__dirname, "./src/servers/webhook.ts")
 }
 
